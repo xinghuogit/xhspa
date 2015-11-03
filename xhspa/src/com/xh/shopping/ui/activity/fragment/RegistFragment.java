@@ -1,50 +1,27 @@
 /*************************************************************************************************
- * °æÈ¨ËùÓĞ (C)2015,  
+ * ç‰ˆæƒæ‰€æœ‰ (C)2015,  
  * 
- * ÎÄ¼şÃû³Æ£ºRegistFragment.java
- * ÄÚÈİÕªÒª£ºRegistFragment.java
- * µ±Ç°°æ±¾£ºTODO
- * ×÷        Õß£ºÀî¼ÓÃÉ
- * Íê³ÉÈÕÆÚ£º2015-11-3 ÏÂÎç9:44:58
- * ĞŞ¸Ä¼ÇÂ¼£º
- * ĞŞ¸ÄÈÕÆÚ£º2015-11-3 ÏÂÎç9:44:58
- * °æ   ±¾ ºÅ£º
- * ĞŞ   ¸Ä ÈË£º
- * ĞŞ¸ÄÄÚÈİ£º
+ * æ–‡ä»¶åç§°ï¼šRegistFragment.java
+ * å†…å®¹æ‘˜è¦ï¼šRegistFragment.java
+ * å½“å‰ç‰ˆæœ¬ï¼šTODO
+ * ä½œ        è€…ï¼šæåŠ è’™
+ * å®Œæˆæ—¥æœŸï¼š2015-11-3 ä¸‹åˆ10:13:36
+ * ä¿®æ”¹è®°å½•ï¼š
+ * ä¿®æ”¹æ—¥æœŸï¼š2015-11-3 ä¸‹åˆ10:13:36
+ * ç‰ˆ   æœ¬ å·ï¼š
+ * ä¿®   æ”¹ äººï¼š
+ * ä¿®æ”¹å†…å®¹ï¼š
  ************************************************************************************************/
 package com.xh.shopping.ui.activity.fragment;
-
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 /**
- @filenameÎÄ¼şÃû³Æ£ºRegistFragment.java
- @content
+@filenameæ–‡ä»¶åç§°ï¼šRegistFragment.java
+@content
  */
 /**
- * @FileName ÎÄ¼şÃû³Æ£ºRegistFragment.java
- * @Content ÄÚÈİÕªÒª£º×¢²á Fragment
+ * @FileName æ–‡ä»¶åç§°ï¼šRegistFragment.java
+ * @Content  å†…å®¹æ‘˜è¦ï¼š
  */
-public class RegistFragment extends Fragment {
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		return super.onCreateView(inflater, container, savedInstanceState);
-	}
+public class RegistFragment {
 
 }
+

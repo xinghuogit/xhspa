@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xh.shopping.ui.activity.RegistActivity"
+            android:name="com.xh.shopping.ui.activity.RegisterActivity"
             android:label="@string/app_name" 
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
