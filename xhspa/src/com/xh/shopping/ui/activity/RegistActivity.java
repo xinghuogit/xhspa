@@ -14,11 +14,11 @@
  ************************************************************************************************/
 package com.xh.shopping.ui.activity;
 
-import com.xh.shopping.ui.activity.fragment.RegistFragment;
-
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+
+import com.xh.shopping.ui.activity.fragment.RegistFragment;
 
 /**
  * @FileName ÎÄ¼þÃû³Æ£ºRegisterActivity.java
@@ -30,7 +30,7 @@ public class RegistActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		RegistFragment registFragment = new RegistFragment();
-		FragmentManager manager = registFragment.getFragmentManager();
+//		FragmentManager manager = registFragment.getFragmentManager();
 	}
 
 }
