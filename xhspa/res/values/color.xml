@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="app_bg">#F4F5F9</color>
+    <color name="app_font_gray">#5D5D5D</color>
+    <color name="app_font_black">#0A0A0A</color>
+    <color name="app_white">#FFFFFF</color>
+    <color name="app_black">#000000</color>
+
+    <!-- 头部颜色 -->
+    <color name="app_blue">#50ADE6</color>
+
+</resources>

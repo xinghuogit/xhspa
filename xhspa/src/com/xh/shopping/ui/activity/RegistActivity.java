@@ -15,16 +15,40 @@
 package com.xh.shopping.ui.activity;
 
 import android.app.Activity;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.xh.shopping.R;
+import com.xh.shopping.ui.activity.fragment.RegistFragment;
+import com.xh.shopping.util.UIHelper;
 
 /**
-@filename文件名称：RegistActivity1.java
-@content
+ @filename文件名称：RegistActivity1.java
+ @content
  */
 /**
  * @FileName 文件名称：RegistActivity1.java
- * @Content  内容摘要：
+ * @Contents 内容摘要： 注册Activity
  */
-public class RegistActivity extends Activity {
+public class RegistActivity extends FragmentActivity {
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_fragment);
+		UIHelper.getInstance().setSystemBar();
+		if (getSupportFragmentManager().findFragmentById(
+				R.id.fragment_container) == null) {
+			RegistFragment fragment = new RegistFragment();
+			fragment.setArguments(getIntent().getExtras());
+			FragmentTransaction trans = getSupportFragmentManager()
+					.beginTransaction();
+			trans.disallowAddToBackStack();
+			trans.add(R.id.fragment_container, fragment).commit();
+		}
+	}
 
 }
-

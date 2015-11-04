@@ -13,15 +13,43 @@
  * 修改内容：
  ************************************************************************************************/
 package com.xh.shopping.ui.activity.fragment;
+
+import com.xh.shopping.R;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 /**
-@filename文件名称：RegistFragment.java
-@content
+ @filename文件名称：RegistFragment.java
+ @content
  */
 /**
  * @FileName 文件名称：RegistFragment.java
- * @Content  内容摘要：
+ * @Contents 内容摘要：注册Fragment
  */
-public class RegistFragment {
+public class RegistFragment extends Fragment {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_regist, container, false);
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+	}
+	
+	
+	
 
 }
-
