@@ -4,7 +4,7 @@
  * 文件名称：RegistFragment.java
  * 内容摘要：RegistFragment.java
  * 当前版本：TODO
- * 作        者：李加蒙
+ * 作        者：李加蒙 1605651971@qq.com
  * 完成日期：2015-11-3 下午10:13:36
  * 修改记录：
  * 修改日期：2015-11-3 下午10:13:36
@@ -14,22 +14,17 @@
  ************************************************************************************************/
 package com.xh.shopping.ui.fragment;
 
-import com.xh.shopping.R;
-import com.xh.shopping.setting.SettingHelper;
-import com.xh.shopping.ui.fragment.activity.RegistActivity;
-import com.xh.shopping.util.UIHelper;
-
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- @filename文件名称：RegistFragment.java
- @content
- */
+import com.xh.shopping.R;
+import com.xh.shopping.setting.SettingHelper;
+import com.xh.shopping.ui.fragment.activity.RegistActivity;
+import com.xh.shopping.util.UIHelper;
+
 /**
  * @FileName 文件名称：RegistFragment.java
  * @Contents 内容摘要：注册Fragment
@@ -56,6 +51,11 @@ public class RegistFragment extends Fragment {
 		parent = getView();
 		SettingHelper.getInstance().setCurrentActivity(activity);
 		UIHelper.getInstance().setSystemBar();
+		findView();
+	}
+
+	private void findView() {
+
 	}
 
 }

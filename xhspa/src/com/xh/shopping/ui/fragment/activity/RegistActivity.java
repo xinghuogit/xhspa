@@ -20,7 +20,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.xh.shopping.R;
 import com.xh.shopping.ui.fragment.RegistFragment;
-import com.xh.shopping.util.UIHelper;
 
 /**
  @filename文件名称：RegistActivity1.java

@@ -14,16 +14,15 @@
  ************************************************************************************************/
 package com.xh.shopping.util;
 
-import com.readystatesoftware.systembartint.SystemBarTintManager;
-import com.xh.shopping.R;
-import com.xh.shopping.setting.SettingHelper;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Build;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.xh.shopping.R;
+import com.xh.shopping.setting.SettingHelper;
 
 /**
  @filename文件名称：UIHelper.java
