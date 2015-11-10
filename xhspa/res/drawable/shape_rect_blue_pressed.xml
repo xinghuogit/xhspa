@@ -14,8 +14,8 @@
 
     <!-- 角的弧度 -->
     <corners
-        android:bottomLeftRadius="3dp"
-        android:bottomRightRadius="3dp"
+        android:bottomLeftRadius="15dp"
+        android:bottomRightRadius="15dp"
         android:topLeftRadius="15dp"
         android:topRightRadius="15dp" />
 

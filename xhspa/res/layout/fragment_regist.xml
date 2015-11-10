@@ -89,9 +89,7 @@
             android:textColor="@color/app_white"
             android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+       
     </LinearLayout>
 
 </LinearLayout>
