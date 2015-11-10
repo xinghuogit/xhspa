@@ -12,18 +12,14 @@
  * 修   改 人：
  * 修改内容：
  ************************************************************************************************/
-package com.xh.shopping.ui.activity;
+package com.xh.shopping.ui.fragment.activity;
 
-import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.xh.shopping.R;
-import com.xh.shopping.ui.activity.fragment.RegistFragment;
+import com.xh.shopping.ui.fragment.RegistFragment;
 import com.xh.shopping.util.UIHelper;
 
 /**
@@ -39,7 +35,6 @@ public class RegistActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_fragment);
-		UIHelper.getInstance().setSystemBar();
 		if (getSupportFragmentManager().findFragmentById(
 				R.id.fragment_container) == null) {
 			RegistFragment fragment = new RegistFragment();

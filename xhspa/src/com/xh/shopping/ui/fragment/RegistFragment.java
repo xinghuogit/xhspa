@@ -12,9 +12,12 @@
  * 修   改 人：
  * 修改内容：
  ************************************************************************************************/
-package com.xh.shopping.ui.activity.fragment;
+package com.xh.shopping.ui.fragment;
 
 import com.xh.shopping.R;
+import com.xh.shopping.setting.SettingHelper;
+import com.xh.shopping.ui.fragment.activity.RegistActivity;
+import com.xh.shopping.util.UIHelper;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +35,9 @@ import android.view.ViewGroup;
  * @Contents 内容摘要：注册Fragment
  */
 public class RegistFragment extends Fragment {
+	private RegistActivity activity;
+	private View parent;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,10 +52,10 @@ public class RegistFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
+		activity = (RegistActivity) getActivity();
+		parent = getView();
+		SettingHelper.getInstance().setCurrentActivity(activity);
+		UIHelper.getInstance().setSystemBar();
 	}
-	
-	
-	
 
 }

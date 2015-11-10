@@ -51,6 +51,7 @@ public class UIHelper {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			setTranslucentStatus(true);
 		}
+		System.out.println("0000000000000");
 		Activity activity = SettingHelper.getInstance().getCurrentActivity();
 		SystemBarTintManager manager = new SystemBarTintManager(activity);
 		manager.setStatusBarTintEnabled(true);
