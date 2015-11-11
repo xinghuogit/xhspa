@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/res/com.xh.shopping"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_head" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_rect_white_login1" >
+
+            <TextView
+                android:id="@+id/login_account_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/login_account"
+                android:textColor="@color/app_font_black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/login_account_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_action_expand" />
+
+            <EditText
+                android:id="@+id/login_account"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/login_account_iv"
+                android:layout_toRightOf="@id/login_account_tv"
+                android:background="@null"
+                android:hint="@string/login_account_hint"
+                android:inputType="text"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_rect_white_login2" >
+
+            <TextView
+                android:id="@+id/login_pwd_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/login_pwd"
+                android:textColor="@color/app_font_black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/login_pwd_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_action_expand" />
+
+            <EditText
+                android:id="@+id/login_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/login_pwd_iv"
+                android:layout_toRightOf="@id/login_pwd_tv"
+                android:background="@null"
+                android:hint="@string/login_pwd_hint"
+                android:inputType="text"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/login_login"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_rect_overall3"
+            android:text="@string/login"
+            android:textColor="@color/app_white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

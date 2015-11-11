@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="app_bg">#F4F5F9</color>
+    <color name="app_bg">#EFEFEF</color>
     <color name="app_overall">#FF3600</color>
     <color name="app_overall_pressed">#FF0000</color>
     <color name="app_font_gray">#5D5D5D</color>
@@ -18,5 +18,6 @@
     <!-- 底部四个按钮 -->
     <color name="app_overall_bottom">#8F9296</color>
     <color name="app_overall_bottom_select">#FF3600</color>
+    <color name="app_transpar">#66000000</color>
 
 </resources>

@@ -61,8 +61,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		// 设置ApplicationContext
 		SettingHelper.getInstance().setApplicationContext(MainActivity.this);
+		// 设置当前Activity
 		SettingHelper.getInstance().setCurrentActivity(MainActivity.this);
+		// 设置状态栏为自定义颜色
 		UIHelper.getInstance().setSystemBar();
 		findView();
 		setListener();
@@ -117,9 +120,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			return;
 		}
 
+		// 创建Fragment管理者
 		FragmentManager manager = getSupportFragmentManager();
+		// 获取Fragment提交事物
 		FragmentTransaction transaction = manager.beginTransaction();
-		
+
 		switch (v.getId()) {
 		case R.id.buttom_tv_home:
 			setBottom(v);
@@ -154,7 +159,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * 
+	 * @param v
+	 *            设置图标字体状态、改变颜色
+	 */
 	private void setBottom(View v) {
+		// 如果和上次点击的View不同并且不为空、设置上次的选中状态为false；
 		if (currentView != null && !currentView.equals(v)) {
 			currentView.setSelected(false);
 		}

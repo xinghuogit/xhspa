@@ -46,27 +46,38 @@ public class UIHelper {
 		return mUIHelper;
 	}
 
+	/**
+	 * 设置系统状态栏
+	 */
 	public void setSystemBar() {
+		// 修改沉浸式状态栏 要大于Android系统4.4 版本API19
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			setTranslucentStatus(true);
 		}
 		Activity activity = SettingHelper.getInstance().getCurrentActivity();
+		// 获取系统状态栏管理者
 		SystemBarTintManager manager = new SystemBarTintManager(activity);
+		// 是否修改
 		manager.setStatusBarTintEnabled(true);
+		// 修改的颜色
 		manager.setStatusBarTintResource(R.color.app_overall);
 	}
 
 	@TargetApi(Build.VERSION_CODES.KITKAT)
 	private void setTranslucentStatus(boolean is) {
+		// 获取当前Activity
 		Activity activity = SettingHelper.getInstance().getCurrentActivity();
 		Window window = activity.getWindow();
 		WindowManager.LayoutParams params = window.getAttributes();
 		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
 		if (is) {
+			// 或之后赋予值
 			params.flags |= bits;
 		} else {
+			// 与之后赋予值
 			params.flags &= ~bits;
 		}
+		// 设置状态参数
 		window.setAttributes(params);
 	}
 

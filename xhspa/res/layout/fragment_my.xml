@@ -1,17 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/res/com.xh.shopping"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_white"
+    android:background="@color/app_bg"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/my"
-        android:textSize="16sp" />
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/my_top_bg"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/my_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:visibility="gone" >
+
+                    <com.xh.shopping.view.CircleImageView
+                        android:id="@+id/my_logo"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/logo"
+                        app:border_color="@color/app_white"
+                        app:border_width="1dp" >
+                    </com.xh.shopping.view.CircleImageView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/my_logo"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/my_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/my_name"
+                            android:textColor="@color/app_white" />
+
+                        <TextView
+                            android:id="@+id/my_vip"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/my_vip"
+                            android:textColor="@color/app_white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/my_manage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/my_manage"
+                        android:textColor="@color/app_white"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/my_notuser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <com.xh.shopping.view.CircleImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/my_notuser_logo"
+                        app:border_color="@color/app_white"
+                        app:border_width="2dp" >
+                    </com.xh.shopping.view.CircleImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/my_notuser"
+                        android:textColor="@color/app_font_gray"
+                        android:textSize="8sp"
+                        tools:ignore="SmallSp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/app_transpar"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/my_attention1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/my_attention1"
+                        android:textColor="@color/app_white"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+
+                    <ImageView
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/app_overall"
+                        android:contentDescription="@string/app_name" />
+
+                    <TextView
+                        android:id="@+id/my_attention2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/my_attention2"
+                        android:textColor="@color/app_white"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+
+                    <ImageView
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/app_overall"
+                        android:contentDescription="@string/app_name" />
+
+                    <TextView
+                        android:id="@+id/my_browser"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/my_browser"
+                        android:textColor="@color/app_white"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/my_order"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/app_white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/my_order"
+                    android:textColor="@color/app_font_black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/my_allorder"
+                    android:textColor="@color/app_font_gray"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:background="@color/app_white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" >
+
+                <TextView
+                    android:id="@+id/my_waiting_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/waiting_payment"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/waiting_payment"
+                    android:textColor="@color/app_font_black"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/my_waiting_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/waiting_goods"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/waiting_goods"
+                    android:textColor="@color/app_font_black"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/my_waiting_evaluation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/waiting_evaluation"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/waiting_evaluation"
+                    android:textColor="@color/app_font_black"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/my_salesafter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/salesafter"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/salesafter"
+                    android:textColor="@color/app_font_black"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">xhspa</string>
+    <string name="app_name">星火</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -11,7 +11,31 @@
     <string name="cart">购物车</string>
     <string name="my">我的</string>
 
-    <!--  -->
+    <!-- 我的 -->
+    <string name="my_name">星火商城</string>
+    <string name="my_vip">普通会员</string>
+    <string name="my_manage">账户管理、地址管理</string>
+    <string name="my_notuser">登录/注册</string>
+    <string name="my_attention1">0\n关注的商品</string>
+    <string name="my_attention2">0\n关注的店铺</string>
+    <string name="my_browser">0\n浏览的商品</string>
+    <string name="my_order">我的订单</string>
+    <string name="my_allorder">查看全部订单</string>
+
+    <!-- 交易订单 -->
+    <string name="waiting_payment">待付款</string>
+    <string name="waiting_goods">待收货</string>
+    <string name="waiting_evaluation">待评价</string>
+    <string name="salesafter">退款/售后</string>
+
+    <!-- 登录 -->
+    <string name="login_account">账号</string>
+    <string name="login_pwd">密码</string>
+    <string name="login_account_hint">请输入登录账号</string>
+    <string name="login_pwd_hint">请输入登录密码</string>
+    <string name="login">登录</string>
+
+    <!-- 注册 -->
     <string name="app_back">返回</string>
     <string name="app_phone">请输入手机号码</string>
     <string name="app_regist">注册</string>
