@@ -23,7 +23,7 @@
             android:layout_height="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/shape_rect_green"
+            android:background="@drawable/shape_rect_overall3"
             android:contentDescription="@string/app_name" />
 
         <ImageView
@@ -32,7 +32,7 @@
             android:layout_height="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/shape_rect_gray"
+            android:background="@drawable/shape_rect_overall3_gray"
             android:contentDescription="@string/app_name" />
 
         <ImageView
@@ -41,7 +41,7 @@
             android:layout_height="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/shape_rect_gray"
+            android:background="@drawable/shape_rect_overall3_gray"
             android:contentDescription="@string/app_name" />
     </LinearLayout>
 
@@ -77,6 +77,13 @@
                 android:hint="@string/app_phone"
                 android:inputType="phone"
                 android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/app_overall"
+                android:contentDescription="@string/app_name" />
         </RelativeLayout>
 
         <Button
@@ -84,12 +91,90 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="50dp"
-            android:background="@drawable/selector_shape_blue"
+            android:background="@drawable/selector_shape_overall"
             android:text="@string/app_regist"
             android:textColor="@color/app_white"
             android:textSize="16sp" />
 
-       
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="@string/app_regist_agreement1"
+            android:textColor="@color/app_font_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="@string/app_regist_agreement2"
+            android:textColor="@color/app_overall"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/regist_input_authcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp" >
+
+            <ImageView
+                android:id="@+id/regist_authcode_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/phone" />
+
+            <EditText
+                android:id="@+id/regist_authcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/regist_authcode_logo"
+                android:background="@null"
+                android:hint="@string/app_regist_authcode"
+                android:inputType="phone"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/regist_countdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/app_regist_countdown"
+                android:textColor="@color/app_overall"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/app_overall"
+                android:contentDescription="@string/app_name" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/regist_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/selector_shape_overall"
+            android:text="@string/app_regist_confirm"
+            android:textColor="@color/app_white"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </LinearLayout>

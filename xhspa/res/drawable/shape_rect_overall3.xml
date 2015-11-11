@@ -3,7 +3,7 @@
     android:shape="rectangle" >
 
     <!-- 颜色 -->
-    <solid android:color="@color/app_blue_pressed" />
+    <solid android:color="@color/app_overall" />
 
     <!-- 字体间距 -->
     <padding
@@ -14,9 +14,9 @@
 
     <!-- 角的弧度 -->
     <corners
-        android:bottomLeftRadius="15dp"
-        android:bottomRightRadius="15dp"
-        android:topLeftRadius="15dp"
-        android:topRightRadius="15dp" />
+        android:bottomLeftRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:topLeftRadius="3dp"
+        android:topRightRadius="3dp" />
 
 </shape>

@@ -2,6 +2,8 @@
 <resources>
 
     <color name="app_bg">#F4F5F9</color>
+    <color name="app_overall">#FF3600</color>
+    <color name="app_overall_pressed">#FF0000</color>
     <color name="app_font_gray">#5D5D5D</color>
     <color name="app_font_black">#0A0A0A</color>
     <color name="app_white">#FFFFFF</color>
@@ -12,5 +14,9 @@
     <color name="app_blue_pressed">#6495ed</color>
     <color name="app_green">#31C27B</color>
     <color name="app_gray">#9D9D9D</color>
+
+    <!-- 底部四个按钮 -->
+    <color name="app_overall_bottom">#8F9296</color>
+    <color name="app_overall_bottom_select">#FF3600</color>
 
 </resources>

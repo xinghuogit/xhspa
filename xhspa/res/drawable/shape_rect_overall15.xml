@@ -3,7 +3,7 @@
     android:shape="rectangle" >
 
     <!-- 颜色 -->
-    <solid android:color="@color/app_blue" />
+    <solid android:color="@color/app_overall" />
 
     <!-- 字体间距 -->
     <padding

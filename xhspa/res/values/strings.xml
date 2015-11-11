@@ -5,10 +5,20 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- 四个底部按钮 -->
+    <string name="home">首页</string>
+    <string name="category">分类</string>
+    <string name="cart">购物车</string>
+    <string name="my">我的</string>
+
     <!--  -->
     <string name="app_back">返回</string>
     <string name="app_phone">请输入手机号码</string>
     <string name="app_regist">注册</string>
-    <string name="app_regist_agreement">点击上面“注册”按钮，即表示你同意</string>
+    <string name="app_regist_agreement1">点击上面“注册”按钮，即表示你同意</string>
+    <string name="app_regist_agreement2">用户服务协议</string>
+    <string name="app_regist_authcode">请输入您的验证码</string>
+    <string name="app_regist_confirm">确定</string>
+    <string name="app_regist_countdown">60秒</string>
 
 </resources>
