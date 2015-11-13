@@ -14,6 +14,7 @@
  ************************************************************************************************/
 package com.xh.shopping.ui.fragment;
 
+import com.xh.shopping.R;
 import com.xh.shopping.ui.fragment.activity.LoginActivity;
 
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class LoginFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return super.onCreateView(inflater, container, savedInstanceState);
+		return inflater.inflate(R.layout.fragment_login, container, false);
 	}
 
 	@Override

@@ -22,7 +22,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -34,6 +33,7 @@ import com.xh.shopping.ui.fragment.CartFragment;
 import com.xh.shopping.ui.fragment.CategoryFragment;
 import com.xh.shopping.ui.fragment.HomeFragment;
 import com.xh.shopping.ui.fragment.MyFragment;
+import com.xh.shopping.util.DeviceUtil;
 import com.xh.shopping.util.UIHelper;
 
 /**
@@ -67,6 +67,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		SettingHelper.getInstance().setCurrentActivity(MainActivity.this);
 		// 设置状态栏为自定义颜色
 		UIHelper.getInstance().setSystemBar();
+		DeviceUtil.getInstance().getPhoneInfo();
 		findView();
 		setListener();
 	}

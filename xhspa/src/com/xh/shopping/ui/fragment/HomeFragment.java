@@ -14,15 +14,18 @@
  ************************************************************************************************/
 package com.xh.shopping.ui.fragment;
 
-import com.xh.shopping.R;
-import com.xh.shopping.ui.MainActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import com.xh.shopping.R;
+import com.xh.shopping.ui.MainActivity;
+import com.xh.shopping.ui.fragment.activity.RegistActivity;
 
 /**
  * @filename 文件名称：HomeFragment.java
@@ -53,6 +56,12 @@ public class HomeFragment extends Fragment {
 	}
 
 	private void findView() {
-		System.out.println("HomeFragment");
+		parent.findViewById(R.id.home_regist).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						startActivity(new Intent(activity, RegistActivity.class));
+					}
+				});
 	}
 }
