@@ -30,7 +30,7 @@ public class TextActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		SettingHelper.getInstance().setCurrentActivity(this);
-		UIHelper.getInstance().setSystemBar();
+//		UIHelper.getInstance().setSystemBar();
 		setContentView(R.layout.activity_test);
 	}
 }

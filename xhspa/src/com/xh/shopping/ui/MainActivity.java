@@ -66,7 +66,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// 设置当前Activity
 		SettingHelper.getInstance().setCurrentActivity(MainActivity.this);
 		// 设置状态栏为自定义颜色
-		UIHelper.getInstance().setSystemBar();
+		// UIHelper.getInstance().setSystemBar();
 		DeviceUtil.getInstance().getPhoneInfo();
 		findView();
 		setListener();

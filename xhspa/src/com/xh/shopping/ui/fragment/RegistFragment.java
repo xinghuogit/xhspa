@@ -83,7 +83,7 @@ public class RegistFragment extends Fragment implements OnClickListener {
 		activity = (RegistActivity) getActivity();
 		parent = getView();
 		SettingHelper.getInstance().setCurrentActivity(activity);
-		UIHelper.getInstance().setSystemBar();
+//		UIHelper.getInstance().setSystemBar();
 		findView();
 		setListener();
 	}
