@@ -83,7 +83,7 @@ public class RegistFragment extends Fragment implements OnClickListener {
 		activity = (RegistActivity) getActivity();
 		parent = getView();
 		SettingHelper.getInstance().setCurrentActivity(activity);
-//		UIHelper.getInstance().setSystemBar();
+		// UIHelper.getInstance().setSystemBar();
 		findView();
 		setListener();
 	}
@@ -194,7 +194,7 @@ public class RegistFragment extends Fragment implements OnClickListener {
 
 			break;
 		case R.id.regist_regist:
-			
+
 			break;
 		case R.id.regist_agreement:
 			break;
