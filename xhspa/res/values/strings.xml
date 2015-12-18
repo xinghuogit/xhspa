@@ -50,5 +50,8 @@
     <string name="regist_nickname">请输入昵称</string>
     <string name="regist_pwd">6~16位字母或者数字</string>
     <string name="regist_confirmpwd">请输入确认密码</string>
+    
+     <string name="phone_notnull">手机号码不可为空</string>
+     <string name="phone_false">手机号码不正确</string>
 
 </resources>

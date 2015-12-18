@@ -22,7 +22,7 @@ import com.xh.shopping.setting.SettingHelper;
 
 /**
  * @filename 文件名称：DeviceUtil.java
- * @contents 内容摘要：
+ * @contents 内容摘要：获取手机信息工具类
  */
 public class DeviceUtil {
 	private static DeviceUtil mDeviceUtil;

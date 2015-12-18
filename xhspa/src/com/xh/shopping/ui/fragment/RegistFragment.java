@@ -15,7 +15,10 @@
 package com.xh.shopping.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +30,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import cn.smssdk.EventHandler;
+import cn.smssdk.OnSendMessageHandler;
+import cn.smssdk.SMSSDK;
 
 import com.xh.shopping.R;
+import com.xh.shopping.constant.Constant;
 import com.xh.shopping.setting.SettingHelper;
 import com.xh.shopping.ui.fragment.activity.RegistActivity;
+import com.xh.shopping.util.ToastUtil;
 import com.xh.shopping.util.UIHelper;
 
 /**
@@ -38,7 +47,7 @@ import com.xh.shopping.util.UIHelper;
  * @Contents 内容摘要：注册Fragment
  */
 public class RegistFragment extends Fragment implements OnClickListener {
-	private RegistActivity activity;
+	private Activity activity;
 	private View parent;
 
 	private LinearLayout linearLayout;
@@ -66,6 +75,8 @@ public class RegistFragment extends Fragment implements OnClickListener {
 	private ImageView regist_pwd_click, regist_confirmpwd_click;
 	private Button regist_confirmregist;
 
+	private boolean isProceed = false;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,7 +91,7 @@ public class RegistFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		activity = (RegistActivity) getActivity();
+		activity = getActivity();
 		parent = getView();
 		SettingHelper.getInstance().setCurrentActivity(activity);
 		// UIHelper.getInstance().setSystemBar();
@@ -90,11 +101,6 @@ public class RegistFragment extends Fragment implements OnClickListener {
 
 	@SuppressLint("InflateParams")
 	private void findView() {
-		linearLayout = (LinearLayout) parent.findViewById(R.id.layout_head_l);
-		relativeLayout = (RelativeLayout) LayoutInflater.from(activity)
-				.inflate(R.layout.layout_head, null, false);
-		linearLayout.removeAllViews();
-		linearLayout.addView(relativeLayout);
 
 		layout_head_left_iv = (ImageView) parent
 				.findViewById(R.id.layout_head_left_iv);
@@ -191,7 +197,7 @@ public class RegistFragment extends Fragment implements OnClickListener {
 			activity.onBackPressed();
 			break;
 		case R.id.regist_phone_logo:
-
+			startSMS();
 			break;
 		case R.id.regist_regist:
 
@@ -210,4 +216,48 @@ public class RegistFragment extends Fragment implements OnClickListener {
 			break;
 		}
 	}
+
+	private void startSMS() {
+		if (!UIHelper.isEdittextHasData(regist_phone)) {
+			ToastUtil.makeToast(activity, R.string.phone_notnull);
+			return;
+		}
+		if (!UIHelper.isPhoneNumbe(regist_phone.getText().toString().trim())) {
+			ToastUtil.makeToast(activity, R.string.phone_false);
+			return;
+		}
+		initSMSSDK();
+	}
+
+	private void initSMSSDK() {
+		SMSSDK.initSDK(activity, Constant.SMS_APPKEY, Constant.SMS_APPSECRET);
+		EventHandler eh = new EventHandler() {
+			@Override
+			public void afterEvent(int event, int result, Object data) {
+				if (result == SMSSDK.RESULT_COMPLETE) {
+					System.out.println("回调成功");
+					// 回调完成
+					if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+						// 提交验证码成功
+						System.out.println("提交验证码成功");
+					} else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+						// 获取验证码成功
+						System.out.println("获取验证码成功");
+					} else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
+						// 返回支持发送验证码的国家列表
+						System.out.println("返回支持发送验证码的国家列表");
+					}
+				} else {
+					((Throwable) data).printStackTrace();
+				}
+			}
+		};
+		SMSSDK.registerEventHandler(eh); // 注册短信回调
+		isProceed = true;
+
+		OnSendMessageHandler osmHandler = null;
+		SMSSDK.getVerificationCode("+86", regist_phone.getText().toString()
+				.trim(), osmHandler);
+	}
+
 }
