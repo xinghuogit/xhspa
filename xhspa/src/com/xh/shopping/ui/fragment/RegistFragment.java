@@ -16,10 +16,12 @@ package com.xh.shopping.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,7 +32,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import cn.smssdk.EventHandler;
 import cn.smssdk.OnSendMessageHandler;
 import cn.smssdk.SMSSDK;
@@ -38,7 +39,6 @@ import cn.smssdk.SMSSDK;
 import com.xh.shopping.R;
 import com.xh.shopping.constant.Constant;
 import com.xh.shopping.setting.SettingHelper;
-import com.xh.shopping.ui.fragment.activity.RegistActivity;
 import com.xh.shopping.util.ToastUtil;
 import com.xh.shopping.util.UIHelper;
 
@@ -76,6 +76,7 @@ public class RegistFragment extends Fragment implements OnClickListener {
 	private Button regist_confirmregist;
 
 	private boolean isProceed = false;
+	private boolean isRegister = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -118,7 +119,7 @@ public class RegistFragment extends Fragment implements OnClickListener {
 
 		layout_head_left_iv.setImageResource(R.drawable.back_wihte);
 		layout_head_left_iv.setVisibility(View.VISIBLE);
-		parent.findViewById(R.id.layout_head_centre_l);
+		parent.findViewById(R.id.layout_head_left_r);
 
 		layout_head_centre_tv.setText("手机注册");
 		layout_head_centre_tv.setVisibility(View.VISIBLE);
@@ -193,14 +194,14 @@ public class RegistFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.layout_head_centre_l:
-			activity.onBackPressed();
+		case R.id.layout_head_left_r:
+			showDialog();
 			break;
 		case R.id.regist_phone_logo:
-			
+
 			break;
 		case R.id.regist_regist:
-			startSMS();
+			// startSMS();
 			break;
 		case R.id.regist_agreement:
 			break;
@@ -217,8 +218,50 @@ public class RegistFragment extends Fragment implements OnClickListener {
 		}
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		getView().setFocusableInTouchMode(true);
+		getView().requestFocus();
+		getView().setOnKeyListener(new View.OnKeyListener() {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (event.getAction() == KeyEvent.ACTION_UP
+						&& keyCode == KeyEvent.KEYCODE_BACK) {
+					showDialog();
+					return true;
+				}
+				return false;
+			}
+		});
+	}
+
+	@Override
+	public void onDestroy() {
+		if (isRegister) {
+			SMSSDK.unregisterAllEventHandler();
+		}
+		super.onDestroy();
+	}
+
+	private void showDialog() {
+		if (isProceed) {
+			AlertDialog.Builder builder = new Builder(activity);
+			builder.setMessage("现在正在注册，你确定要退出？");
+			builder.setTitle("退出？");
+			builder.setNegativeButton("取消", null);
+			builder.setPositiveButton("确定",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							activity.onBackPressed();
+						}
+					});
+		}
+	}
+
 	private void startSMS() {
-		if (!UIHelper.isEdittextHasData(regist_phone)) {
+		if (UIHelper.isEdittextHasData(regist_phone)) {
 			ToastUtil.makeToast(activity, R.string.phone_notnull);
 			return;
 		}
@@ -247,13 +290,13 @@ public class RegistFragment extends Fragment implements OnClickListener {
 						// 返回支持发送验证码的国家列表
 						System.out.println("返回支持发送验证码的国家列表");
 					}
-				} else { 
+				} else {
 					((Throwable) data).printStackTrace();
 				}
 			}
 		};
 		SMSSDK.registerEventHandler(eh); // 注册短信回调
-		isProceed = true;
+		isRegister = true;
 
 		OnSendMessageHandler osmHandler = null;
 		SMSSDK.getVerificationCode("+86", regist_phone.getText().toString()
