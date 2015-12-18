@@ -89,7 +89,7 @@
         <Button
             android:id="@+id/regist_regist"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/selector_shape_overall"
             android:text="@string/regist"

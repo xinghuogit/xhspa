@@ -197,10 +197,10 @@ public class RegistFragment extends Fragment implements OnClickListener {
 			activity.onBackPressed();
 			break;
 		case R.id.regist_phone_logo:
-			startSMS();
+			
 			break;
 		case R.id.regist_regist:
-
+			startSMS();
 			break;
 		case R.id.regist_agreement:
 			break;
@@ -247,7 +247,7 @@ public class RegistFragment extends Fragment implements OnClickListener {
 						// 返回支持发送验证码的国家列表
 						System.out.println("返回支持发送验证码的国家列表");
 					}
-				} else {
+				} else { 
 					((Throwable) data).printStackTrace();
 				}
 			}
