@@ -71,6 +71,9 @@ public class TestRegistActivity extends FragmentActivity {
 					ToastUtil.makeToast(TestRegistActivity.this, "密码和确认密码不同");
 					return;
 				}
+				
+				
+				
 			}
 		});
 	}
