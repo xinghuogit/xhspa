@@ -14,12 +14,18 @@
  ************************************************************************************************/
 package com.xh.shopping.serve;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+
+import android.os.Handler;
+import android.os.Message;
 
 /**
  * @filename 文件名称：Constant.java
@@ -38,10 +44,12 @@ public class JSONDataService extends Thread {
 
 	private String url;
 	private Object postData;
+	private Handler handler;
 
-	public JSONDataService(String url, Object postData) {
+	public JSONDataService(String url, Object postData, Handler handler) {
 		this.url = url;
 		this.postData = postData;
+		this.handler = handler;
 	}
 
 	@Override
@@ -63,14 +71,28 @@ public class JSONDataService extends Thread {
 				connection.setRequestMethod("POST");
 				String content = getContent();
 				if (content != null && !content.equals("")) {
-					
+					OutputStream os = connection.getOutputStream();
+					os.write(content.getBytes());
+					System.out.println("POST请求");
 				} else {
-					connection.setRequestMethod("GET");
+					System.out.println("POST请求错误，参数为空");
 				}
 			} else {
 				connection.setRequestMethod("GET");
+				System.out.println("GET请求");
 			}
 
+			StringBuffer buffer = new StringBuffer();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+			String len;
+			while ((len = reader.readLine()) != null) {
+				buffer.append(len);
+				System.out.println("buffer:" + buffer.toString());
+				Message msg = new Message();
+				msg.obj = buffer.toString();
+				handler.sendMessage(msg);
+			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

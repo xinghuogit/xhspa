@@ -30,6 +30,13 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <!-- 短信验证 -->
+
+        <activity
+            android:name="com.xh.shopping.ui.activity.TestRegistActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name="com.xh.shopping.ui.TextActivity"
             android:label="@string/app_name"

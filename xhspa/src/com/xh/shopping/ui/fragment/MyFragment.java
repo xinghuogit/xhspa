@@ -14,23 +14,29 @@
  ************************************************************************************************/
 package com.xh.shopping.ui.fragment;
 
-import com.xh.shopping.R;
-import com.xh.shopping.ui.MainActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
+import com.xh.shopping.R;
+import com.xh.shopping.ui.MainActivity;
+import com.xh.shopping.ui.activity.TestRegistActivity;
 
 /**
  * @filename 文件名称：MyFragment.java
  * @contents 内容摘要：我的Fragment
  */
-public class MyFragment extends Fragment {
+public class MyFragment extends Fragment implements OnClickListener {
 	private MainActivity activity;
 	private View parent;
+
+	private RelativeLayout my_notuser;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,10 +56,29 @@ public class MyFragment extends Fragment {
 		parent = getView();
 
 		findView();
+		setListener();
 	}
 
 	private void findView() {
-		System.out.println("MyFragment");
+		// System.out.println("MyFragment");
+		my_notuser = (RelativeLayout) parent.findViewById(R.id.my_notuser);
+
+	}
+
+	private void setListener() {
+		my_notuser.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.my_notuser:
+			Intent intent = new Intent(activity, TestRegistActivity.class);
+			startActivity(intent);
+			break;
+		default:
+			break;
+		}
 	}
 
 }
