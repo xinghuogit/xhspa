@@ -201,7 +201,7 @@ public class RegistFragment extends Fragment implements OnClickListener {
 
 			break;
 		case R.id.regist_regist:
-			// startSMS();
+			startSMS();
 			break;
 		case R.id.regist_agreement:
 			break;

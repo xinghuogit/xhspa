@@ -37,6 +37,8 @@
     <string name="login">登录</string>
     <string name="login_regist">手机快速注册</string>
     <string name="login_lostpwd">忘记密码</string>
+    <string name="account_notnull">账号不可为空</string>
+    <string name="pwd_notnull">账号不可为空</string>
 
     <!-- 注册 -->
     <string name="phone">请输入手机号码</string>
@@ -46,12 +48,10 @@
     <string name="regist_authcode">请输入您的验证码</string>
     <string name="regist_confirm">确定</string>
     <string name="regist_countdown">60秒</string>
-    
     <string name="regist_nickname">请输入昵称</string>
     <string name="regist_pwd">6~16位字母或者数字</string>
     <string name="regist_confirmpwd">请输入确认密码</string>
-    
-     <string name="phone_notnull">手机号码不可为空</string>
-     <string name="phone_false">手机号码不正确</string>
+    <string name="phone_notnull">手机号码不可为空</string>
+    <string name="phone_false">手机号码不正确</string>
 
 </resources>

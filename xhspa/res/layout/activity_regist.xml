@@ -8,19 +8,19 @@
         android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="账号" />
+        android:text="1838028753" />
 
     <EditText
         android:id="@+id/psw1"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="密码" />
+        android:text="li1128" />
 
     <EditText
         android:id="@+id/psw2"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="确认密码" />
+        android:text="li1128" />
 
     <Button
         android:id="@+id/button1"

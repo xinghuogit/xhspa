@@ -24,6 +24,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import com.xh.shopping.util.StringUtil;
+
 import android.os.Handler;
 import android.os.Message;
 
@@ -61,19 +63,24 @@ public class JSONDataService extends Thread {
 		if (url == null) {
 			return;
 		}
+		URL httpUrl = null;
 
+		HttpURLConnection connection = null;
 		try {
-			URL httpUrl = new URL(url);
-			HttpURLConnection connection = (HttpURLConnection) httpUrl
-					.openConnection();
+			System.out.println("url:" + url);
+			httpUrl = new URL(url);
+			connection = (HttpURLConnection) httpUrl.openConnection();
 			connection.setConnectTimeout(5000);
+			connection.setDoInput(true);
+			connection.setDoInput(true);
 			if (postData != null) {
 				connection.setRequestMethod("POST");
 				String content = getContent();
-				if (content != null && !content.equals("")) {
+				if (!StringUtil.isEmpty(content)) {
+					System.out.println("POST请求" + content);
 					OutputStream os = connection.getOutputStream();
 					os.write(content.getBytes());
-					System.out.println("POST请求");
+
 				} else {
 					System.out.println("POST请求错误，参数为空");
 				}
@@ -94,8 +101,16 @@ public class JSONDataService extends Thread {
 				handler.sendMessage(msg);
 			}
 		} catch (MalformedURLException e) {
+			if (connection != null) {
+				connection.disconnect();
+			}
+			System.out.println("MalformedURLException");
 			e.printStackTrace();
 		} catch (IOException e) {
+			if (connection != null) {
+				connection.disconnect();
+			}
+			System.out.println("IOException");
 			e.printStackTrace();
 		}
 
@@ -108,6 +123,7 @@ public class JSONDataService extends Thread {
 	 */
 	@SuppressWarnings("unchecked")
 	private String getContent() {
+
 		if (postData instanceof Map) {
 			Map<String, Object> data = (Map<String, Object>) postData;
 			if (data == null) {
@@ -115,7 +131,6 @@ public class JSONDataService extends Thread {
 			}
 
 			StringBuffer buffer = new StringBuffer();
-			buffer.append("?");
 
 			for (String key : data.keySet()) {
 				String value = String.valueOf(data.get(key));

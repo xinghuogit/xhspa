@@ -49,7 +49,8 @@ public class TestRegistActivity extends FragmentActivity {
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			String json = (String) msg.obj;
-			System.out.println("TestRegistActivity:"+json);
+			System.out.println("返回结果:" + json);
+			ToastUtil.makeToast(TestRegistActivity.this, json);
 		};
 	};
 
