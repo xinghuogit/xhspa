@@ -73,7 +73,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_action_expand" />
+                android:src="@drawable/ic_action_expand" 
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/login_pwd"
@@ -103,7 +104,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" >
+            android:layout_marginTop="10dp" >
 
             <TextView
                 android:id="@+id/login_regist"

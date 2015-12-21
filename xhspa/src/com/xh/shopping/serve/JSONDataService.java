@@ -21,17 +21,26 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
-
-import com.xh.shopping.util.StringUtil;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 import android.os.Handler;
 import android.os.Message;
+import com.xh.shopping.R;
+import com.xh.shopping.model.User;
+import com.xh.shopping.setting.SettingHelper;
+import com.xh.shopping.util.StringUtil;
+import com.xh.shopping.util.ToastUtil;
+import com.xh.shopping.util.UIHelper;
 
 /**
  * @filename 文件名称：Constant.java
- * @contents 内容摘要：
+ * @contents 内容摘要：网络获取服务
+ * 
+ * @msg arg1
+ * @0 返回为空 服务器未连接
+ * @1 返回非空 提交获取成功 0001
+ * @2 返回非空 提交获取失败 0002
  */
 public class JSONDataService extends Thread {
 
@@ -47,11 +56,14 @@ public class JSONDataService extends Thread {
 	private String url;
 	private Object postData;
 	private Handler handler;
+	private boolean isAuth;
 
-	public JSONDataService(String url, Object postData, Handler handler) {
+	public JSONDataService(String url, Object postData, Handler handler,
+			boolean isAuth) {
 		this.url = url;
 		this.postData = postData;
 		this.handler = handler;
+		this.isAuth = isAuth;
 	}
 
 	@Override
@@ -73,6 +85,7 @@ public class JSONDataService extends Thread {
 			connection.setConnectTimeout(5000);
 			connection.setDoInput(true);
 			connection.setDoInput(true);
+			addHeader(connection);
 			if (postData != null) {
 				connection.setRequestMethod("POST");
 				String content = getContent();
@@ -95,25 +108,85 @@ public class JSONDataService extends Thread {
 			String len;
 			while ((len = reader.readLine()) != null) {
 				buffer.append(len);
-				System.out.println("buffer:" + buffer.toString());
-				Message msg = new Message();
-				msg.obj = buffer.toString();
-				handler.sendMessage(msg);
 			}
+			System.out.println("buffer:" + buffer.toString());
+			String result = buffer.toString();
+			Message msg = new Message();
+			JSONObject json = null;
+			String ret = null;
+
+			if (StringUtil.isEmpty(result)) {
+				msg.arg1 = 0;
+			} else {
+				json = getJSON(result);
+			}
+
+			if (json == null) {
+				msg.arg1 = 0;
+			} else {
+				ret = json.optString("ret");
+			}
+
+			if (StringUtil.isEmpty(ret)) {
+				msg.arg1 = 0;
+			} else if (ret.equals("0001")) {
+				msg.arg1 = 1;
+				msg.obj = json;
+			} else {
+				msg.arg1 = 2;
+				String msgRet = json.optString("msg");
+				msg.obj = msgRet;
+			}
+			handler.sendMessage(msg);
 		} catch (MalformedURLException e) {
 			if (connection != null) {
 				connection.disconnect();
 			}
+			UIHelper.dismissProgressDialog();
 			System.out.println("MalformedURLException");
 			e.printStackTrace();
 		} catch (IOException e) {
 			if (connection != null) {
 				connection.disconnect();
 			}
+			UIHelper.dismissProgressDialog();
+			ToastUtil.makeToast(SettingHelper.getInstance()
+					.getApplicationContext(), "连接服务器失败，请检查网络");
 			System.out.println("IOException");
 			e.printStackTrace();
 		}
 
+	}
+
+	private void addHeader(HttpURLConnection connection) {
+		if (isAuth) {
+			User userInfo = SettingHelper.getInstance().getUserInfo();
+			if (userInfo == null) {
+				ToastUtil.makeToast(SettingHelper.getInstance()
+						.getApplicationContext(), R.string.logininfo_error);
+				return;
+			} else {
+				String userpsw = userInfo.getUsername() + ":"
+						+ userInfo.getPassword();
+				connection.setRequestProperty("Authorization", userpsw);
+			}
+		}
+	}
+
+	/**
+	 * 如果是返回失败的话 要用这段
+	 * 
+	 * @param result
+	 * @return
+	 */
+	private JSONObject getJSON(String result) {
+		try {
+			JSONObject json = new JSONObject(result);
+			return json;
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**

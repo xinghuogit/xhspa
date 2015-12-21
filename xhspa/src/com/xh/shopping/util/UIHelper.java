@@ -17,7 +17,17 @@ package com.xh.shopping.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.xh.shopping.R;
 
 /**
  @filename文件名称：UIHelper.java
@@ -40,6 +50,11 @@ public class UIHelper {
 		}
 		return mUIHelper;
 	}
+
+	private static ProgressDialog dialog;
+	private static Activity mContext;
+
+	private static Dialog mDialog;
 
 	// /**
 	// * 设置系统状态栏
@@ -75,6 +90,62 @@ public class UIHelper {
 	// // 设置状态参数
 	// window.setAttributes(params);
 	// }
+
+	public static void showProgressDialog(final Activity context,
+			final int resId) {
+		showProgressDialog(context, context.getResources().getString(resId));
+	}
+
+	public static void showProgressDialog(final Activity context,
+			final int resId, boolean canable) {
+		showProgressDialog(context, context.getResources().getString(resId),
+				canable);
+	}
+
+	public static void showProgressDialog(final Activity context,
+			final String msg) {
+		showProgressDialog(context, msg, true);
+	}
+
+	public static void showProgressDialog(final Activity context,
+			final String msg, boolean canable) {
+		dismissProgressDialog();
+		mContext = context;
+		View view = LayoutInflater.from(context).inflate(
+				R.layout.layout_show_progress, null);
+		LinearLayout dialogLL = (LinearLayout) view;
+		TextView tv_msg = (TextView) dialogLL
+				.findViewById(R.id.show_progress_tv);
+		tv_msg.setText(msg);
+		mDialog = new Dialog(mContext, R.style.dialog_mass);
+		Window win = mDialog.getWindow();// 获取所在window
+		android.view.WindowManager.LayoutParams params = win.getAttributes();// 获取LayoutParams
+		params.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+		params.width = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+		win.setAttributes(params);// 设置生效
+		mDialog.setContentView(dialogLL);
+		mDialog.setCancelable(canable);
+		mDialog.setCanceledOnTouchOutside(false);
+		mDialog.show();
+
+	}
+
+	public static void dismissProgressDialog() {
+		if (mContext == null)
+			return;
+		mContext.runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				if (mDialog != null && mDialog.isShowing()) {
+					if (mContext != null && !mContext.isFinishing()) {
+						mDialog.dismiss();
+					}
+					mDialog = null;
+				}
+			}
+		});
+	}
 
 	/**
 	 * 检查是否是正确的电话号码

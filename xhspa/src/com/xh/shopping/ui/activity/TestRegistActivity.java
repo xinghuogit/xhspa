@@ -17,7 +17,10 @@ package com.xh.shopping.ui.activity;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
+import android.net.Network;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -28,7 +31,10 @@ import android.widget.EditText;
 
 import com.xh.shopping.R;
 import com.xh.shopping.constant.Constant;
+import com.xh.shopping.model.User;
 import com.xh.shopping.serve.JSONDataService;
+import com.xh.shopping.setting.SettingHelper;
+import com.xh.shopping.util.NetworkUtil;
 import com.xh.shopping.util.ToastUtil;
 import com.xh.shopping.util.UIHelper;
 
@@ -46,11 +52,65 @@ public class TestRegistActivity extends FragmentActivity {
 
 	private Button button;
 
-	private Handler handler = new Handler() {
+	private Handler handlerregist = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			String json = (String) msg.obj;
-			System.out.println("返回结果:" + json);
-			ToastUtil.makeToast(TestRegistActivity.this, json);
+			int arg = msg.arg1;
+
+			switch (arg) {
+			case 0:
+				System.out.println("服务器连接失败");
+				UIHelper.dismissProgressDialog();
+				break;
+			case 1:
+				ToastUtil.makeToast(TestRegistActivity.this,
+						R.string.regist_success);
+				System.out.println("注册成功,登录中...");
+				setLogin();
+				// UIHelper.dismissProgressDialog();
+				break;
+			case 2:
+				String msgRet = (String) msg.obj;
+				System.out.println("返回失败：" + msgRet);
+				ToastUtil.makeToast(TestRegistActivity.this, msgRet);
+				UIHelper.dismissProgressDialog();
+				break;
+			default:
+				break;
+			}
+
+		};
+	};
+
+	private Handler handlerlog = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			int arg = msg.arg1;
+
+			switch (arg) {
+			case 0:
+				System.out.println("服务器连接失败");
+				UIHelper.dismissProgressDialog();
+				break;
+			case 1:
+				JSONObject json = (JSONObject) msg.obj;
+				User user = new User();
+				user.parseJSON(json);
+				System.out.println("登录成功");
+				ToastUtil.makeToast(TestRegistActivity.this, "登录成功");
+				System.out
+						.println((SettingHelper.getInstance().getUserInfo() == null)
+								+ "");
+				UIHelper.dismissProgressDialog();
+				break;
+			case 2:
+				String msgRet = (String) msg.obj;
+				System.out.println("返回失败：" + msgRet);
+				ToastUtil.makeToast(TestRegistActivity.this, msgRet);
+				UIHelper.dismissProgressDialog();
+				break;
+			default:
+				break;
+			}
+
 		};
 	};
 
@@ -88,17 +148,48 @@ public class TestRegistActivity extends FragmentActivity {
 					return;
 				}
 
+				if (!NetworkUtil.isNetworkAvailable()) {
+					ToastUtil.makeToast(TestRegistActivity.this,
+							R.string.not_network);
+					return;
+				}
+
 				Map<String, String> map = new HashMap<String, String>();
 				map.put("username", user.getText().toString().trim());
 				map.put("password", psw1.getText().toString().trim());
 				map.put("password2", psw2.getText().toString().trim());
 				map.put("phone", user.getText().toString().trim());
 
+				UIHelper.showProgressDialog(TestRegistActivity.this,
+						R.string.regist_centre, false);
 				JSONDataService service = new JSONDataService(Constant
-						.getService(Constant.API_REGISTER), map, handler);
+						.getService(Constant.API_REGISTER), map, handlerregist,
+						false);
 				service.start();
 			}
 		});
+	}
+
+	protected void setLogin() {
+		if (UIHelper.isEdittextHasData(user)) {
+			ToastUtil.makeToast(TestRegistActivity.this, "账号不可为空");
+			return;
+		}
+		if (UIHelper.isEdittextHasData(psw1)) {
+			ToastUtil.makeToast(TestRegistActivity.this, "密码不可为空");
+			return;
+		}
+		if (!NetworkUtil.isNetworkAvailable()) {
+			ToastUtil.makeToast(TestRegistActivity.this, R.string.not_network);
+			return;
+		}
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("username", user.getText().toString().trim());
+		map.put("password", psw1.getText().toString().trim());
+		JSONDataService service = new JSONDataService(
+				Constant.getService(Constant.API_LOGIN), map, handlerlog, false);
+		service.start();
 	}
 
 }

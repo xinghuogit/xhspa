@@ -19,6 +19,7 @@ import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.xh.shopping.setting.SettingHelper;
 import com.xh.shopping.util.StringUtil;
 
 /**
@@ -96,16 +97,32 @@ public class User implements Serializable {
 		this.cpdate = cpdate;
 	}
 
-	public void parseJSON(JSONObject body) {
-		setUsername(body.optString("username"));
-		setPassword(body.optString("password"));
+	public void parseJSON(JSONObject json) {
+		try {
+			JSONObject body = json.getJSONObject("body");
+			setUsername(body.optString("username"));
+			setPassword(body.optString("password"));
 
-		if (StringUtil.isEmpty(username) && StringUtil.isEmpty(password)) {
-			System.out.println("返回数据异常，账号或者密码为空");
-			return;
+			if (StringUtil.isEmpty(getUsername())) {
+				System.out.println("返回数据异常，账号为空");
+				return;
+			}
+			if (StringUtil.isEmpty(getPassword())) {
+				System.out.println("返回数据异常，密码为空");
+				return;
+			}
+
+			setPhone(body.optString("phone"));
+			setNickname(body.optString("nickname"));
+			setAddr(body.optString("addr"));
+			setRadte(body.optString("radte"));
+			setCpdate(body.optString("cpdate"));
+
+			SettingHelper.getInstance().setUserInfo(this);
+		} catch (JSONException e) {
+			SettingHelper.getInstance().setUserInfo(null);
+			e.printStackTrace();
 		}
-
-		setPhone(body.optString("phone"));
 
 	}
 

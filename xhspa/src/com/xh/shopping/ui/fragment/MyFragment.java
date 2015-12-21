@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import com.xh.shopping.R;
 import com.xh.shopping.ui.MainActivity;
 import com.xh.shopping.ui.activity.TestRegistActivity;
+import com.xh.shopping.ui.fragment.activity.LoginActivity;
 
 /**
  * @filename 文件名称：MyFragment.java
@@ -73,7 +74,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.my_notuser:
-			Intent intent = new Intent(activity, TestRegistActivity.class);
+			Intent intent = new Intent(activity, LoginActivity.class);
 			startActivity(intent);
 			break;
 		default:

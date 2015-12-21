@@ -14,10 +14,13 @@
  ************************************************************************************************/
 package com.xh.shopping.ui.fragment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -28,11 +31,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.xh.shopping.R;
 import com.xh.shopping.constant.Constant;
+import com.xh.shopping.model.User;
 import com.xh.shopping.serve.JSONDataService;
-import com.xh.shopping.ui.fragment.activity.LoginActivity;
+import com.xh.shopping.setting.SettingHelper;
+import com.xh.shopping.ui.activity.TestRegistActivity;
+import com.xh.shopping.util.NetworkUtil;
 import com.xh.shopping.util.ToastUtil;
 import com.xh.shopping.util.UIHelper;
 
@@ -40,8 +47,8 @@ import com.xh.shopping.util.UIHelper;
  * @filename 文件名称：LoginFragment.java
  * @contents 内容摘要：
  */
-public class LoginFragment extends Fragment {
-	private LoginActivity activity;
+public class LoginFragment extends Fragment implements OnClickListener {
+	private Activity activity;
 	private View parent;
 
 	private EditText login_account;
@@ -49,12 +56,7 @@ public class LoginFragment extends Fragment {
 
 	private Button login_login;
 
-	private Handler handler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			String json = (String) msg.obj;
-			ToastUtil.makeToast(activity, json);
-		};
-	};
+	private TextView login_regist, login_lostpwd;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,10 +72,11 @@ public class LoginFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		activity = (LoginActivity) getActivity();
+		activity = getActivity();
 		parent = getView();
 
 		findView();
+		setListener();
 	}
 
 	private void findView() {
@@ -81,31 +84,90 @@ public class LoginFragment extends Fragment {
 		login_pwd = (EditText) parent.findViewById(R.id.login_pwd);
 
 		login_login = (Button) parent.findViewById(R.id.login_login);
-		login_login.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startLoginService();
-			}
-		});
+
+		login_regist = (TextView) parent.findViewById(R.id.login_regist);
+		login_lostpwd = (TextView) parent.findViewById(R.id.login_lostpwd);
+	}
+
+	private void setListener() {
+		login_login.setOnClickListener(this);
+		login_regist.setOnClickListener(this);
+		login_lostpwd.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.login_login:
+			startLoginService();
+			break;
+		case R.id.login_regist:
+			Intent intent = new Intent(activity, TestRegistActivity.class);
+			startActivity(intent);
+			break;
+		default:
+			break;
+		}
 	}
 
 	protected void startLoginService() {
 		if (UIHelper.isEdittextHasData(login_account)) {
-			ToastUtil.makeToast(activity, R.string.account_notnull);
+			ToastUtil.makeToast(activity, "账号不可为空");
 			return;
 		}
-
 		if (UIHelper.isEdittextHasData(login_pwd)) {
-			ToastUtil.makeToast(activity, R.string.account_notnull);
+			ToastUtil.makeToast(activity, "密码不可为空");
+			return;
+		}
+		if (!NetworkUtil.isNetworkAvailable()) {
+			ToastUtil.makeToast(activity, R.string.not_network);
 			return;
 		}
 
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("username", login_account.getText().toString().trim());
 		map.put("password", login_pwd.getText().toString().trim());
-
+		UIHelper.showProgressDialog(activity, R.string.login_centre);
 		JSONDataService service = new JSONDataService(
-				Constant.getService(Constant.API_LOGIN), map, handler);
+				Constant.getService(Constant.API_LOGIN), map, handlerlog, false);
 		service.start();
 	}
+
+	private Handler handlerlog = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			int arg = msg.arg1;
+
+			switch (arg) {
+			case 0:
+				System.out.println("服务器连接失败");
+				UIHelper.dismissProgressDialog();
+				break;
+			case 1:
+				JSONObject json = (JSONObject) msg.obj;
+				User user = new User();
+				user.parseJSON(json);
+				if (SettingHelper.getInstance().getUserInfo() == null) {
+					System.out.println("登录异常，请重新登录");
+					ToastUtil.makeToast(activity, "登录异常，请重新登录");
+					return;
+				}
+				System.out.println("登录成功");
+				ToastUtil.makeToast(activity, "登录成功");
+				System.out
+						.println((SettingHelper.getInstance().getUserInfo() == null)
+								+ "");
+				UIHelper.dismissProgressDialog();
+				break;
+			case 2:
+				String msgRet = (String) msg.obj;
+				System.out.println("返回失败：" + msgRet);
+				ToastUtil.makeToast(activity, msgRet);
+				UIHelper.dismissProgressDialog();
+				break;
+			default:
+				break;
+			}
+
+		};
+	};
 }

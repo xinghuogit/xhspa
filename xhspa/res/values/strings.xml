@@ -5,6 +5,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="app_back">返回</string>
+    <string name="request">请求中&#8230;</string>
+    <string name="loading">加载中&#8230;</string>
+    <string name="loading_img">图片上传中&#8230;</string>
+    <string name="loading_tv">上传中&#8230;</string>
+    <string name="not_network">网络未连接，请设置</string>
 
     <!-- 四个底部按钮 -->
     <string name="home">首页</string>
@@ -35,14 +40,17 @@
     <string name="login_account_hint">请输入登录账号</string>
     <string name="login_pwd_hint">请输入登录密码</string>
     <string name="login">登录</string>
+    <string name="login_centre">登录中&#8230;</string>
     <string name="login_regist">手机快速注册</string>
     <string name="login_lostpwd">忘记密码</string>
     <string name="account_notnull">账号不可为空</string>
     <string name="pwd_notnull">账号不可为空</string>
+    <string name="logininfo_error">登录信息错误、请重新登录</string>
 
     <!-- 注册 -->
     <string name="phone">请输入手机号码</string>
     <string name="regist">注册</string>
+    <string name="regist_centre">注册中&#8230;</string>
     <string name="regist_agreement1">点击上面“注册”按钮，即表示你同意</string>
     <string name="regist_agreement2">用户服务协议</string>
     <string name="regist_authcode">请输入您的验证码</string>
@@ -53,5 +61,6 @@
     <string name="regist_confirmpwd">请输入确认密码</string>
     <string name="phone_notnull">手机号码不可为空</string>
     <string name="phone_false">手机号码不正确</string>
+    <string name="regist_success">注册成功</string>
 
 </resources>
