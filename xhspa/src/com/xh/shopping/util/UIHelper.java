@@ -120,8 +120,8 @@ public class UIHelper {
 		mDialog = new Dialog(mContext, R.style.dialog_mass);
 		Window win = mDialog.getWindow();// 获取所在window
 		android.view.WindowManager.LayoutParams params = win.getAttributes();// 获取LayoutParams
-		params.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-		params.width = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+		params.height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+		params.width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 		win.setAttributes(params);// 设置生效
 		mDialog.setContentView(dialogLL);
 		mDialog.setCancelable(canable);

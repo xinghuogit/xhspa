@@ -28,8 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:visibility="gone" >
+                    android:padding="10dp" >
 
                     <com.xh.shopping.view.CircleImageView
                         android:id="@+id/my_logo"
@@ -86,7 +85,8 @@
                     android:layout_height="60dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal"
+                    android:visibility="gone" >
 
                     <com.xh.shopping.view.CircleImageView
                         android:layout_width="60dp"
@@ -200,7 +200,7 @@
                 android:paddingRight="10dp" >
 
                 <TextView
-                    android:id="@+id/my_waiting_payment"
+                    android:id="@+id/payment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -213,7 +213,7 @@
                     tools:ignore="SmallSp" />
 
                 <TextView
-                    android:id="@+id/my_waiting_goods"
+                    android:id="@+id/receipt "
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -226,7 +226,7 @@
                     tools:ignore="SmallSp" />
 
                 <TextView
-                    android:id="@+id/my_waiting_evaluation"
+                    android:id="@+id/evaluation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -239,7 +239,7 @@
                     tools:ignore="SmallSp" />
 
                 <TextView
-                    android:id="@+id/my_salesafter"
+                    android:id="@+id/salesafter"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

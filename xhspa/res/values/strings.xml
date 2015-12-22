@@ -10,7 +10,9 @@
     <string name="loading_img">图片上传中&#8230;</string>
     <string name="loading_tv">上传中&#8230;</string>
     <string name="not_network">网络未连接，请设置</string>
-
+   <string name="confirm">确定</string>
+   <string name="cancel">取消</string>
+    
     <!-- 四个底部按钮 -->
     <string name="home">首页</string>
     <string name="category">分类</string>
@@ -54,7 +56,6 @@
     <string name="regist_agreement1">点击上面“注册”按钮，即表示你同意</string>
     <string name="regist_agreement2">用户服务协议</string>
     <string name="regist_authcode">请输入您的验证码</string>
-    <string name="regist_confirm">确定</string>
     <string name="regist_countdown">60秒</string>
     <string name="regist_nickname">请输入昵称</string>
     <string name="regist_pwd">6~16位字母或者数字</string>
@@ -63,4 +64,10 @@
     <string name="phone_false">手机号码不正确</string>
     <string name="regist_success">注册成功</string>
 
+    <!-- 个人信息 -->
+    
+    <string name="exit_title">退出账号</string>
+    <string name="exit_msg">你确定要退出本账号？</string>
+    
+    
 </resources>

@@ -103,7 +103,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.login_regist:
 			Intent intent = new Intent(activity, TestRegistActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent, 102);
 			break;
 		default:
 			break;
@@ -132,6 +132,19 @@ public class LoginFragment extends Fragment implements OnClickListener {
 				Constant.getService(Constant.API_LOGIN), map, handlerlog, false);
 		service.start();
 	}
+	
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode!=102) {
+			return;
+		}
+		if (resultCode==activity.RESULT_OK) {
+			activity.setResult(activity.RESULT_OK);
+			activity.finish();
+		}
+	
+	}
 
 	private Handler handlerlog = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -157,6 +170,8 @@ public class LoginFragment extends Fragment implements OnClickListener {
 						.println((SettingHelper.getInstance().getUserInfo() == null)
 								+ "");
 				UIHelper.dismissProgressDialog();
+				activity.setResult(activity.RESULT_OK);
+				activity.finish();
 				break;
 			case 2:
 				String msgRet = (String) msg.obj;

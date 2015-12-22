@@ -174,7 +174,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/selector_shape_overall"
-            android:text="@string/regist_confirm"
+            android:text="@string/confirm"
             android:textColor="@color/app_white"
             android:textSize="16sp" />
     </LinearLayout>
@@ -311,7 +311,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/selector_shape_overall"
-            android:text="@string/regist_confirm"
+            android:text="@string/confirm"
             android:textColor="@color/app_white"
             android:textSize="16sp" />
     </LinearLayout>

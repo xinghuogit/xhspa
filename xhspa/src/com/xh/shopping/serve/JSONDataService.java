@@ -168,6 +168,7 @@ public class JSONDataService extends Thread {
 			} else {
 				String userpsw = userInfo.getUsername() + ":"
 						+ userInfo.getPassword();
+				System.out.println("userpsw:" + userpsw);
 				connection.setRequestProperty("Authorization", userpsw);
 			}
 		}

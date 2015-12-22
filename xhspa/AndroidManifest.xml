@@ -55,6 +55,18 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.xh.shopping.ui.fragment.activity.MyInfoActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.xh.shopping.ui.activity.ChangePasswordActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 获取设备信息包括电话号码 -->

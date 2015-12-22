@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.xh.shopping"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_eeeeee"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <include layout="@layout/layout_head" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/color_d8d8d8"
+            android:contentDescription="@string/app_name" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_white"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <RelativeLayout
+                android:id="@+id/info_logo_r"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_btn_white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="头像"
+                    android:textColor="@color/color_888888"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/info_logo_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/build_details" />
+
+                <com.xh.shopping.view.CircleImageView
+                    android:id="@+id/info_logo_iv"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/info_logo_action"
+                    android:src="@drawable/nopicture"
+                    app:border_color="@color/app_white"
+                    app:border_width="0dp" >
+                </com.xh.shopping.view.CircleImageView>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/color_d8d8d8"
+                android:contentDescription="@string/app_name" />
+
+            <RelativeLayout
+                android:id="@+id/info_nickname_r"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_btn_white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="昵称"
+                    android:textColor="@color/color_888888"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/info_nickname_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/build_details"
+                    android:gravity="center_vertical"
+                    android:text="暮东海"
+                    android:textColor="@color/app_font_gray"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/color_d8d8d8"
+                android:contentDescription="@string/app_name" />
+
+            <RelativeLayout
+                android:id="@+id/info_cpwd_r"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_btn_white" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableRight="@drawable/build_details"
+                    android:text="修改密码"
+                    android:textColor="@color/color_888888"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/color_d8d8d8"
+            android:contentDescription="@string/app_name" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/color_d8d8d8"
+            android:contentDescription="@string/app_name" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_white"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:text="个人信息"
+                android:textColor="#0a67ae"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:id="@+id/info_phone_r"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="手机"
+                    android:textColor="@color/color_888888"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/info_phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="18380287535"
+                    android:textColor="@color/app_font_gray"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/color_d8d8d8"
+                android:contentDescription="@string/app_name" />
+
+            <RelativeLayout
+                android:id="@+id/info_name_r"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="姓名"
+                    android:textColor="@color/color_888888"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/info_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="刘能"
+                    android:textColor="@color/app_font_gray"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/color_d8d8d8"
+                android:contentDescription="@string/app_name" />
+
+            <RelativeLayout
+                android:id="@+id/create_time_r"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="注册时间"
+                    android:textColor="@color/color_888888"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/create_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="2015-12-22 12:41:55"
+                    android:textColor="@color/app_font_gray"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:gravity="bottom"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/info_exit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/selector_shape_overall"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="退出账号"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

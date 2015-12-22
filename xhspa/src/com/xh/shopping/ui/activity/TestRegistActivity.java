@@ -52,68 +52,6 @@ public class TestRegistActivity extends FragmentActivity {
 
 	private Button button;
 
-	private Handler handlerregist = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			int arg = msg.arg1;
-
-			switch (arg) {
-			case 0:
-				System.out.println("服务器连接失败");
-				UIHelper.dismissProgressDialog();
-				break;
-			case 1:
-				ToastUtil.makeToast(TestRegistActivity.this,
-						R.string.regist_success);
-				System.out.println("注册成功,登录中...");
-				setLogin();
-				// UIHelper.dismissProgressDialog();
-				break;
-			case 2:
-				String msgRet = (String) msg.obj;
-				System.out.println("返回失败：" + msgRet);
-				ToastUtil.makeToast(TestRegistActivity.this, msgRet);
-				UIHelper.dismissProgressDialog();
-				break;
-			default:
-				break;
-			}
-
-		};
-	};
-
-	private Handler handlerlog = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			int arg = msg.arg1;
-
-			switch (arg) {
-			case 0:
-				System.out.println("服务器连接失败");
-				UIHelper.dismissProgressDialog();
-				break;
-			case 1:
-				JSONObject json = (JSONObject) msg.obj;
-				User user = new User();
-				user.parseJSON(json);
-				System.out.println("登录成功");
-				ToastUtil.makeToast(TestRegistActivity.this, "登录成功");
-				System.out
-						.println((SettingHelper.getInstance().getUserInfo() == null)
-								+ "");
-				UIHelper.dismissProgressDialog();
-				break;
-			case 2:
-				String msgRet = (String) msg.obj;
-				System.out.println("返回失败：" + msgRet);
-				ToastUtil.makeToast(TestRegistActivity.this, msgRet);
-				UIHelper.dismissProgressDialog();
-				break;
-			default:
-				break;
-			}
-
-		};
-	};
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -191,5 +129,69 @@ public class TestRegistActivity extends FragmentActivity {
 				Constant.getService(Constant.API_LOGIN), map, handlerlog, false);
 		service.start();
 	}
+
+	private Handler handlerregist = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			int arg = msg.arg1;
+
+			switch (arg) {
+			case 0:
+				System.out.println("服务器连接失败");
+				UIHelper.dismissProgressDialog();
+				break;
+			case 1:
+				ToastUtil.makeToast(TestRegistActivity.this,
+						R.string.regist_success);
+				System.out.println("注册成功,登录中...");
+				setLogin();
+				// UIHelper.dismissProgressDialog();
+				break;
+			case 2:
+				String msgRet = (String) msg.obj;
+				System.out.println("返回失败：" + msgRet);
+				ToastUtil.makeToast(TestRegistActivity.this, msgRet);
+				UIHelper.dismissProgressDialog();
+				break;
+			default:
+				break;
+			}
+
+		};
+	};
+
+	private Handler handlerlog = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			int arg = msg.arg1;
+
+			switch (arg) {
+			case 0:
+				System.out.println("服务器连接失败");
+				UIHelper.dismissProgressDialog();
+				break;
+			case 1:
+				JSONObject json = (JSONObject) msg.obj;
+				User user = new User();
+				user.parseJSON(json);
+				System.out.println("登录成功");
+				ToastUtil.makeToast(TestRegistActivity.this, "登录成功");
+				System.out
+						.println((SettingHelper.getInstance().getUserInfo() == null)
+								+ "");
+				UIHelper.dismissProgressDialog();
+				setResult(RESULT_OK);
+				TestRegistActivity.this.finish();
+				break;
+			case 2:
+				String msgRet = (String) msg.obj;
+				System.out.println("返回失败：" + msgRet);
+				ToastUtil.makeToast(TestRegistActivity.this, msgRet);
+				UIHelper.dismissProgressDialog();
+				break;
+			default:
+				break;
+			}
+
+		};
+	};
 
 }

@@ -56,7 +56,19 @@ public class Constant implements Serializable {
 		return START_SERVICE + str;
 	}
 
+	/**
+	 * 注册
+	 */
 	public static final String API_REGISTER = "userregister.json";
+	
+	/**
+	 * 登录
+	 */
 	public static final String API_LOGIN = "login.json";
+
+	/**
+	 * 修改密码
+	 */
+	public static final String API_CHANGEPASSWORD = "changepassword.json";
 
 }
