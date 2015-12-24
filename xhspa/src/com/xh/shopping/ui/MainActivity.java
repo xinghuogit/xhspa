@@ -14,8 +14,12 @@ package com.xh.shopping.ui;
  * 修   改 人：
  * 修改内容：
  ************************************************************************************************/
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -34,7 +38,6 @@ import com.xh.shopping.ui.fragment.CategoryFragment;
 import com.xh.shopping.ui.fragment.HomeFragment;
 import com.xh.shopping.ui.fragment.MyFragment;
 import com.xh.shopping.util.DeviceUtil;
-import com.xh.shopping.util.UIHelper;
 
 /**
  * @filename 文件名称：MainActivity.java
@@ -70,6 +73,19 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		DeviceUtil.getInstance().getPhoneInfo();
 		findView();
 		setListener();
+
+		Timer t = new Timer();
+		t.schedule(new TimerTask() {
+			public void run() {
+				// Looper.prepare();
+				// UserInfo userInfo =
+				// SettingHelper.getInstance().getUserInfo();
+				// startIntent(activity, userInfo.getRoleId(),
+				// userInfo.getCateId());
+				// Looper.loop();
+				mHandler.sendEmptyMessageAtTime(1, 2000);
+			}
+		}, 800);
 	}
 
 	@SuppressLint("InflateParams")
@@ -173,5 +189,24 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		currentView = v;
 		currentView.setSelected(true);
 	}
+
+	private static final Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(android.os.Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case 1:
+				// Log.d(TAG, "Set alias in handler.");
+				// // 调用 JPush 接口来设置别名。
+				// JPushInterface.setAliasAndTags(SettingHelper.getInstance()
+				// .getApplicationContext(), (String) msg.obj, null,
+				// mAliasCallback);
+				System.out.println("00000000000");
+				break;
+			default:
+				// Log.i(TAG, "Unhandled msg - " + msg.what);
+			}
+		}
+	};
 
 }
