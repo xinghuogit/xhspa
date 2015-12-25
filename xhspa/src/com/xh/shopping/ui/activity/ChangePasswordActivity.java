@@ -124,9 +124,9 @@ public class ChangePasswordActivity extends Activity {
 				User user = new User();
 				user.parseJSON(json);
 				if (SettingHelper.getInstance().getUserInfo() == null) {
-					System.out.println("登录异常，请重新登录");
+					System.out.println("返回数据异常，请重新登录");
 					ToastUtil.makeToast(ChangePasswordActivity.this,
-							"登录异常，请重新登录");
+							"返回数据异常，请重新登录");
 					return;
 				}
 				System.out.println("修改密码成功");

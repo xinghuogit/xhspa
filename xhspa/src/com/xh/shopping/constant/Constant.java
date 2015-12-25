@@ -46,13 +46,14 @@ public class Constant implements Serializable {
 	 */
 
 	// private static String START_SERVICE = "http://192.168.1.7:8080/xhsp/";
-	private static String START_SERVICE = "http://192.168.1.100:8080/xhsp/";
+	// private static String START_SERVICE = "http://192.168.1.100:8080/xhsp/";
 
 	/**
 	 * 公司
 	 */
 	// public static final String START_SERVICE =
 	// "http://192.168.56.1:8080/xhsp/";
+	public static final String START_SERVICE = "http://192.168.31.107:8080/xhsp/";
 
 	public static String getService(String str) {
 		return START_SERVICE + str;
