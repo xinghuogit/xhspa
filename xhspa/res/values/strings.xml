@@ -10,9 +10,9 @@
     <string name="loading_img">图片上传中&#8230;</string>
     <string name="loading_tv">上传中&#8230;</string>
     <string name="not_network">网络未连接，请设置</string>
-   <string name="confirm">确定</string>
-   <string name="cancel">取消</string>
-    
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+
     <!-- 四个底部按钮 -->
     <string name="home">首页</string>
     <string name="category">分类</string>
@@ -65,9 +65,12 @@
     <string name="regist_success">注册成功</string>
 
     <!-- 个人信息 -->
-    
     <string name="exit_title">退出账号</string>
     <string name="exit_msg">你确定要退出本账号？</string>
-    
-    
+
+    <!-- 更换头像 -->
+    <string name="change_icon">更换头像</string>
+    <string name="change_icon_photo">用相册更换头像</string>
+    <string name="change_icon_camera">用相机更换头像</string>
+
 </resources>

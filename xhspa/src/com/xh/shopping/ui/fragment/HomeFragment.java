@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 
 import com.xh.shopping.R;
 import com.xh.shopping.ui.MainActivity;
-import com.xh.shopping.ui.fragment.activity.RegistActivity;
+import com.xh.shopping.ui.activity.TestRegistActivity;
 
 /**
  * @filename 文件名称：HomeFragment.java
@@ -60,7 +60,8 @@ public class HomeFragment extends Fragment {
 				new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						startActivity(new Intent(activity, RegistActivity.class));
+//						startActivity(new Intent(activity, MyInfoActivity.class));
+						startActivity(new Intent(activity, TestRegistActivity.class));
 					}
 				});
 	}

@@ -14,14 +14,13 @@
  ************************************************************************************************/
 package com.xh.shopping.ui.fragment.activity;
 
-import com.xh.shopping.R;
-import com.xh.shopping.ui.fragment.MyInfoFragment;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+
+import com.xh.shopping.R;
+import com.xh.shopping.ui.fragment.MyInfoFragment;
 
 /**
  * @filename 文件名称：MyInfoActivity.java

@@ -179,4 +179,15 @@ public class UIHelper {
 		return false;
 	}
 
+	/**
+	 * 判断SD卡是否存在
+	 * 
+	 * @return
+	 */
+	public static boolean isSDPresent() {
+		Boolean isSDPresent = android.os.Environment.getExternalStorageState()
+				.equals(android.os.Environment.MEDIA_MOUNTED);
+		return isSDPresent;
+	}
+
 }

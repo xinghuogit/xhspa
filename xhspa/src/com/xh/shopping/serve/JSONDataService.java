@@ -146,6 +146,7 @@ public class JSONDataService extends Thread {
 			System.out.println("MalformedURLException");
 			e.printStackTrace();
 		} catch (IOException e) {
+			
 			if (connection != null) {
 				connection.disconnect();
 			}
