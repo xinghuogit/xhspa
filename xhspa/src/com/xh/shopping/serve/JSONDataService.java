@@ -151,9 +151,9 @@ public class JSONDataService extends Thread {
 				connection.disconnect();
 			}
 			UIHelper.dismissProgressDialog();
-			ToastUtil.makeToast(SettingHelper.getInstance()
-					.getApplicationContext(), "连接服务器失败，请检查网络");
-			System.out.println("IOException");
+//			ToastUtil.makeToast(SettingHelper.getInstance()
+//					.getCurrentActivity(), "连接服务器失败，请检查网络");
+//			System.out.println("IOException");
 			e.printStackTrace();
 		}
 
