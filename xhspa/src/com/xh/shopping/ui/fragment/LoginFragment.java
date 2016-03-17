@@ -38,7 +38,7 @@ import com.xh.shopping.constant.Constant;
 import com.xh.shopping.model.User;
 import com.xh.shopping.serve.JSONDataService;
 import com.xh.shopping.setting.SettingHelper;
-import com.xh.shopping.ui.activity.TestRegistActivity;
+import com.xh.shopping.ui.fragment.activity.RegistActivity;
 import com.xh.shopping.util.NetworkUtil;
 import com.xh.shopping.util.ToastUtil;
 import com.xh.shopping.util.UIHelper;
@@ -102,7 +102,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
 			startLoginService();
 			break;
 		case R.id.login_regist:
-			Intent intent = new Intent(activity, TestRegistActivity.class);
+			Intent intent = new Intent(activity, RegistActivity.class);
 			startActivityForResult(intent, 102);
 			break;
 		default:
