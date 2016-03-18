@@ -20,4 +20,5 @@ package com.xh.shopping.serve;
  */
 public interface DataService {
 	// public interface
+	public void i();
 }
