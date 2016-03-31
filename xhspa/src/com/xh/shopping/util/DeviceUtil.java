@@ -61,4 +61,8 @@ public class DeviceUtil {
 		return phoneInfo;
 	}
 
+	public int getSDKINT() {
+		return android.os.Build.VERSION.SDK_INT;
+	}
+
 }

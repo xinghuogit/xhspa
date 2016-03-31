@@ -14,12 +14,15 @@ package com.xh.shopping.ui;
  * 修   改 人：
  * 修改内容：
  ************************************************************************************************/
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.os.StatFs;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -38,6 +41,8 @@ import com.xh.shopping.ui.fragment.CategoryFragment;
 import com.xh.shopping.ui.fragment.HomeFragment;
 import com.xh.shopping.ui.fragment.MyFragment;
 import com.xh.shopping.util.DeviceUtil;
+import com.xh.shopping.util.SDUtil;
+import com.xh.shopping.util.UIHelper;
 
 /**
  * @filename 文件名称：MainActivity.java
@@ -64,6 +69,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		if (UIHelper.isSDPresent()) {
+			File ed = Environment.getExternalStorageDirectory();
+			// ed.get
+			File dd = Environment.getDataDirectory();
+			System.out.println("ed:" + ed.toString() + "\ndd:" + dd.toString());
+
+		}
+
+		SDUtil sdUtil = new SDUtil(MainActivity.this);
+		System.out.println("全部SD"+sdUtil.getSDTotalSize()+"\n可用SD"+
+				sdUtil.getSDAvailableSize()+"\n全部ROM"+
+				sdUtil.getRomTotalSize()+"\n可用ROM"+
+				sdUtil.getRomAvailableSize()
+				
+				);
+
+
 		// 设置ApplicationContext
 		SettingHelper.getInstance().setApplicationContext(MainActivity.this);
 		// 设置当前Activity
