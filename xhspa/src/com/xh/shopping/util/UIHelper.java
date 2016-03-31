@@ -17,6 +17,7 @@ package com.xh.shopping.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -51,6 +52,7 @@ public class UIHelper {
 		return mUIHelper;
 	}
 
+	@SuppressWarnings("unused")
 	private static ProgressDialog dialog;
 	private static Activity mContext;
 
@@ -107,6 +109,7 @@ public class UIHelper {
 		showProgressDialog(context, msg, true);
 	}
 
+	@SuppressLint("InflateParams")
 	public static void showProgressDialog(final Activity context,
 			final String msg, boolean canable) {
 		dismissProgressDialog();
