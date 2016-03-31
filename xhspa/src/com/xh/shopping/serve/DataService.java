@@ -15,11 +15,26 @@
 package com.xh.shopping.serve;
 
 /**
+ * @author 创建作者LI：李加蒙
  * @filename 文件名称：DataService.java
- * @contents 内容摘要：
+ * @contents 内容摘要：数据Service接口
  */
 public interface DataService {
-	// public interface
-	public void idd();
-	public void i();
+	/**
+	 * 继承DataServiceDelegate，设置当前Activity
+	 * 
+	 * @param delegate
+	 *            当前Activity
+	 */
+	public void setDataService(DataServiceDelegate delegate);
+
+	/**
+	 * 开启Service
+	 */
+	public void start();
+
+	/**
+	 * 取消Service
+	 */
+	public void cancll();
 }

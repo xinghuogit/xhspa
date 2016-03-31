@@ -15,13 +15,34 @@ package com.xh.shopping.constant;
 
 import java.io.Serializable;
 
-import org.apache.http.entity.SerializableEntity;
-
 /**
  * @filename 文件名称：Constant.java
  * @contents 内容摘要：常量
  */
 public class Constant implements Serializable {
+	/**
+	 * 设置编码
+	 */
+	public static final String UTF_8 = "UTF-8";
+
+	/**
+	 * HTTP 网络超时连接时间 20秒
+	 */
+	public static final int TIMEOUT_CONNECTION = 20000;
+
+	/**
+	 * HTTPS 网络超时连接时间 20秒
+	 */
+	public static final int TIMEOUT_SOCKET = 20000;
+
+	/**
+	 * get请求
+	 */
+	public static final String GET = "GET";
+	/**
+	 * post请求
+	 */
+	public static final String POST = "POST";
 
 	/**
 	 * 短信验证
