@@ -45,7 +45,8 @@ public class StringUtil {
 	 * @return Whether the string is empty.
 	 */
 	public static boolean isEmpty(String value) {
-		return value == null || value.trim().length() == 0;
+		return value == null || value.trim().length() == 0
+				|| "null".equals(value.trim());
 	}
 
 	public static String getDouble(int a) {

@@ -32,7 +32,7 @@ import android.widget.EditText;
 import com.xh.shopping.R;
 import com.xh.shopping.constant.Constant;
 import com.xh.shopping.model.User;
-import com.xh.shopping.serve.JSONDataService;
+import com.xh.shopping.serve.JSONDataServiceImpl;
 import com.xh.shopping.setting.SettingHelper;
 import com.xh.shopping.util.NetworkUtil;
 import com.xh.shopping.util.ToastUtil;
@@ -100,7 +100,7 @@ public class TestRegistActivity extends FragmentActivity {
 
 				UIHelper.showProgressDialog(TestRegistActivity.this,
 						R.string.regist_centre, false);
-				JSONDataService service = new JSONDataService(Constant
+				JSONDataServiceImpl service = new JSONDataServiceImpl(Constant
 						.getService(Constant.API_REGISTER), map, handlerregist,
 						false);
 				service.start();
@@ -125,7 +125,7 @@ public class TestRegistActivity extends FragmentActivity {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("username", user.getText().toString().trim());
 		map.put("password", psw1.getText().toString().trim());
-		JSONDataService service = new JSONDataService(
+		JSONDataServiceImpl service = new JSONDataServiceImpl(
 				Constant.getService(Constant.API_LOGIN), map, handlerlog, false);
 		service.start();
 	}

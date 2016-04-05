@@ -36,7 +36,7 @@ import android.widget.TextView;
 import com.xh.shopping.R;
 import com.xh.shopping.constant.Constant;
 import com.xh.shopping.model.User;
-import com.xh.shopping.serve.JSONDataService;
+import com.xh.shopping.serve.JSONDataServiceImpl;
 import com.xh.shopping.setting.SettingHelper;
 import com.xh.shopping.ui.fragment.activity.RegistActivity;
 import com.xh.shopping.util.NetworkUtil;
@@ -128,7 +128,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
 		map.put("username", login_account.getText().toString().trim());
 		map.put("password", login_pwd.getText().toString().trim());
 		UIHelper.showProgressDialog(activity, R.string.login_centre);
-		JSONDataService service = new JSONDataService(
+		JSONDataServiceImpl service = new JSONDataServiceImpl(
 				Constant.getService(Constant.API_LOGIN), map, handlerlog, false);
 		service.start();
 	}

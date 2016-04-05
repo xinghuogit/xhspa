@@ -65,4 +65,17 @@ public class DeviceUtil {
 		return android.os.Build.VERSION.SDK_INT;
 	}
 
+	/**
+	 * 获取手机系统版本及手机型号
+	 * 
+	 * @return
+	 */
+	public String getUserAgent() {
+		StringBuilder stringBuilder = new StringBuilder("XHSPA.COM");
+		stringBuilder.append("/Android");
+		stringBuilder.append("/" + android.os.Build.VERSION.RELEASE);// 手机系统版本
+		stringBuilder.append("/" + android.os.Build.MODEL);// 手机型号
+		return stringBuilder.toString();
+	}
+
 }
