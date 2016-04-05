@@ -36,10 +36,8 @@ public interface DataServiceDelegate {
 	 * 
 	 * @param service
 	 *            当前Service
-	 * @param exception
-	 *            异常
 	 * @param ret
 	 *            异常原因，如无则传空
 	 */
-	void onServiceFailure(DataService service, Exception exception, String ret);
+	void onServiceFailure(DataService service, String ret);
 }

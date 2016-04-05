@@ -23,15 +23,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import org.apache.http.protocol.HTTP;
+import org.json.JSONObject;
 import android.util.Log;
-import com.mob.tools.network.StringPart;
 import com.xh.shopping.R;
 import com.xh.shopping.constant.Constant;
 import com.xh.shopping.model.User;
@@ -84,6 +83,15 @@ abstract class DataServiceImpl implements DataService {
 	 */
 	public void setDataServiceDelegate(DataServiceDelegate dataServiceDelegate) {
 		this.dataServiceDelegate = dataServiceDelegate;
+	}
+
+	/**
+	 * 获取DataServiceDelegate对象dataServiceDelegate是否为空
+	 * 
+	 * @return
+	 */
+	public boolean hasDelegate() {
+		return hasDelegate();
 	}
 
 	/**
@@ -179,9 +187,12 @@ abstract class DataServiceImpl implements DataService {
 			Callable<Void> callable = new Callable<Void>() {
 				@Override
 				public Void call() throws Exception {
+					// 开启服务
+					doStartService();
 					return null;
 				}
 			};
+			// 提交开启Service
 			executorTask = getExecutorService().submit(callable);
 		}
 	}
@@ -193,13 +204,17 @@ abstract class DataServiceImpl implements DataService {
 	public void cancll() {
 		// 当前取消Service 是否取消为true
 		isCancelled = true;
+		// 开启线程
 		new Thread() {
 			@Override
 			public void run() {
+				// 执行人工作非空
 				if (executorTask != null) {
+					// executorTask撤销并且滞空
 					executorTask.cancel(true);
 					executorTask = null;
 				}
+				// 释放connection
 				releaseConnection();
 			}
 		}.start();
@@ -213,9 +228,24 @@ abstract class DataServiceImpl implements DataService {
 		return DataServiceFactory.getInstance().getExecutorService();
 	}
 
+	/**
+	 * 滞空connection 释放connection
+	 */
 	private void releaseConnection() {
+		if (connection != null) {
+			connection = null;
+		}
 	}
 
+	/**
+	 * 设置请求方式，发送请求，获取返回网络字节流数据
+	 * 
+	 * @param url
+	 *            网址
+	 * @param data
+	 *            是否post请求
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	protected byte[] sendServiceRequest(String url, Object data) {
 		if (StringUtil.isEmpty(url)) {
@@ -223,7 +253,7 @@ abstract class DataServiceImpl implements DataService {
 			return null;
 		}
 		try {
-			if (url.indexOf("?") > 0) {// 把url后面用?连接的数据转化成为utf-8格式
+			if (url.indexOf("?") > 0) {// 把url后面用?连接的数据转化成为UTF-8格式
 				// 从?之后一位截取到最后
 				String param = url
 						.substring(url.indexOf("?") + 1, url.length());
@@ -248,6 +278,7 @@ abstract class DataServiceImpl implements DataService {
 					stringBuilder.append("&");
 				}
 			}
+			// data非空 post请求
 			if (data != null) {
 				connection = getHttpConnection(Constant.POST, url);
 				if (data instanceof List) {
@@ -256,26 +287,34 @@ abstract class DataServiceImpl implements DataService {
 					submitMap((Map<String, Object>) data, connection);
 				}
 				addHeader(connection);
-			} else {
+			} else {// get请求
 				connection = getHttpConnection(Constant.GET, url);
 				addHeader(connection);
 			}
 
-			int code = connection.getResponseCode();
+			// 返回状态码
+			int statusCode = connection.getResponseCode();
+			// 返回信息
 			String message = connection.getResponseMessage();
 			StringBuffer buffer = new StringBuffer();
+			// connection获取输入流
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					connection.getInputStream()));
 			String len;
 			while ((len = reader.readLine()) != null) {
 				buffer.append(len);
 			}
+			// 返回的转换成字符串
 			String response = buffer.toString();
+			// 释放connection
 			releaseConnection();
-			if ((getDataServiceDelegate() != null) && (code == 200)
-					&& response.getBytes() != null) {
+			// DataServiceDelegate对象非空；statusCode为200；返回数据非空
+			if (hasDelegate() && (statusCode == 200)
+					&& (response.getBytes() != null)) {
+				// 请求返回字节数据
 				return response.getBytes();
 			}
+			Log.i(TAG, "error：" + message);
 			return null;
 		} catch (UnsupportedEncodingException e) {
 			Log.i(TAG, "数据转化成为UTF-8字符串异常");
@@ -300,13 +339,18 @@ abstract class DataServiceImpl implements DataService {
 	private void submitMap(Map<String, Object> data,
 			HttpURLConnection connection) throws IOException {
 		StringBuffer buffer = new StringBuffer();
+		// 迭代出data的数据
 		for (String key : data.keySet()) {
 			String value = String.valueOf(data.get(key));
+			// 用键队值的方式拼接成字符串
 			buffer.append(key + "=" + value + "&");
 		}
+		// 拼接好字符串去掉最后一个&
 		String content = buffer.toString()
 				.subSequence(0, buffer.toString().length() - 1).toString();
+		// connection获取一个输出流
 		OutputStream os = connection.getOutputStream();
+		// 字符串写入到输出流中
 		os.write(content.getBytes());
 	}
 
@@ -330,4 +374,100 @@ abstract class DataServiceImpl implements DataService {
 			}
 		}
 	}
+
+	/**
+	 * 判断返回的JSON是否正常
+	 * 
+	 * @param jsonObject
+	 * @return false：JSON异常 true：JSON正常
+	 */
+	protected boolean isJSONObject(JSONObject jsonObject) {
+		if (jsonObject == null) {
+			propagateServiceFailure("服务器未响应");
+			return false;
+		} else {
+			// 获取返回的code
+			String returnCode = jsonObject.optString("ret");
+			// returnCode为空，但非0000；表示有返回，但数据异常
+			if (returnCode == null || !returnCode.equals(Constant.CODE_NORMAL)) {
+				propagateServiceFailure(jsonObject.optString("msg"));
+				return false;
+			} else {
+				// returnCode非空，并且为0000；表示有返回，并且数据正常
+				return true;
+			}
+		}
+	}
+
+	/**
+	 * 表示有返回，并且数据正常
+	 * 
+	 * @param object
+	 *            JSON数据
+	 */
+	protected void propagateServiceSuccess(Object object) {
+		Log.i(TAG, "propagateServiceSuccess");
+		// 非取消的Service并且是有DataServiceDelegate对象
+		if (!isCancelled && hasDelegate()) {
+			getDataServiceDelegate().onServiceSuccess(this, object);
+		}
+	}
+
+	/**
+	 * 有或者无返回，有返回时数据异常，无返回时服务器未响应
+	 * 
+	 * @param ret
+	 *            服务器未响应或者返回未响应的原因
+	 */
+	protected void propagateServiceFailure(String ret) {
+		Log.i(TAG, "propagateServiceFailure");
+		// 非取消的Service并且是有DataServiceDelegate对象
+		if (!isCancelled && hasDelegate()) {
+			getDataServiceDelegate().onServiceFailure(this, ret);
+		}
+	}
+
+	// class UnsignedTrustManager implements X509TrustManager {
+	// public void checkClientTrusted(X509Certificate[] chain, String authType)
+	// throws CertificateException {
+	// }
+	//
+	// public void checkServerTrusted(X509Certificate[] chain, String authType)
+	// throws CertificateException {
+	// }
+	//
+	// public X509Certificate[] getAcceptedIssuers() {
+	// return null;
+	// }
+	// }
+	//
+	// class UnsignedSSLSocketFactory extends SSLSocketFactory {
+	// SSLContext sslContext = SSLContext.getInstance("TLS");
+	//
+	// public UnsignedSSLSocketFactory(KeyStore truststore)
+	// throws NoSuchAlgorithmException, KeyManagementException,
+	// KeyStoreException, UnrecoverableKeyException {
+	// super(truststore);
+	//
+	// sslContext.init(null,
+	// new TrustManager[] { new UnsignedTrustManager() }, null);
+	// }
+	//
+	// @Override
+	// public Socket createSocket(Socket socket, String host, int port,
+	// boolean autoClose) throws IOException, UnknownHostException {
+	// Socket s = sslContext.getSocketFactory().createSocket(socket, host,
+	// port, autoClose);
+	// s.setSoTimeout(SettingHelper.getInstance().getSocketTimeout());
+	// return s;
+	// }
+	//
+	// @Override
+	// public Socket createSocket() throws IOException {
+	// Socket s = sslContext.getSocketFactory().createSocket();
+	// s.setSoTimeout(SettingHelper.getInstance().getSocketTimeout());
+	// return s;
+	// }
+	// }
+
 }

@@ -31,7 +31,7 @@ import android.widget.EditText;
 import com.xh.shopping.R;
 import com.xh.shopping.constant.Constant;
 import com.xh.shopping.model.User;
-import com.xh.shopping.serve.JSONDataServiceImpl;
+import com.xh.shopping.serve.JSONDataServiceImpl1;
 import com.xh.shopping.setting.SettingHelper;
 import com.xh.shopping.util.NetworkUtil;
 import com.xh.shopping.util.ToastUtil;
@@ -104,7 +104,7 @@ public class ChangePasswordActivity extends Activity {
 		map.put("password1", editText1.getText().toString().trim());
 		map.put("password2", editText2.getText().toString().trim());
 
-		JSONDataServiceImpl service = new JSONDataServiceImpl(
+		JSONDataServiceImpl1 service = new JSONDataServiceImpl1(
 				Constant.getService(Constant.API_CHANGEPASSWORD), map,
 				handlerchange, true);
 		service.start();

@@ -45,6 +45,11 @@ public class Constant implements Serializable {
 	public static final String POST = "POST";
 
 	/**
+	 * 请求数据成功
+	 */
+	public static final String CODE_NORMAL = "0000";
+
+	/**
 	 * 短信验证
 	 */
 	public static final String SMS_APPKEY = "d84ab355d37a";

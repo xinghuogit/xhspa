@@ -42,9 +42,9 @@ import com.xh.shopping.util.UIHelper;
  * @1 返回非空 提交获取成功 0001
  * @2 返回非空 提交获取失败 0002
  */
-public class JSONDataServiceImpl extends Thread {
+public class JSONDataServiceImpl1 extends Thread {
 
-	private static JSONDataServiceImpl serviceInstance = null;
+	private static JSONDataServiceImpl1 serviceInstance = null;
 
 	// public static synchronized JSONDataService getInstance() {
 	// if (serviceInstance == null) {
@@ -58,7 +58,7 @@ public class JSONDataServiceImpl extends Thread {
 	private Handler handler;
 	private boolean isAuth;
 
-	public JSONDataServiceImpl(String url, Object postData, Handler handler,
+	public JSONDataServiceImpl1(String url, Object postData, Handler handler,
 			boolean isAuth) {
 		this.url = url;
 		this.postData = postData;

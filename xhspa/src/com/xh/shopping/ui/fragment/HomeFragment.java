@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import com.xh.shopping.R;
 import com.xh.shopping.constant.Constant;
 import com.xh.shopping.model.User;
-import com.xh.shopping.serve.JSONDataServiceImpl;
+import com.xh.shopping.serve.JSONDataServiceImpl1;
 import com.xh.shopping.setting.SettingHelper;
 import com.xh.shopping.ui.MainActivity;
 import com.xh.shopping.ui.activity.ChangePasswordActivity;
@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
 					public void onClick(View v) {
 						// startActivity(new Intent(activity,
 						// MyInfoActivity.class));
-						JSONDataServiceImpl service = new JSONDataServiceImpl(
+						JSONDataServiceImpl1 service = new JSONDataServiceImpl1(
 "http://www.people.com.cn/", null,
 								handlerchange, true);
 						service.start();
