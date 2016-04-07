@@ -33,7 +33,7 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String id;
+	private String userid;
 	private String username;
 	private String password;
 	private String phone;
@@ -41,6 +41,14 @@ public class User implements Serializable {
 	private String addr;
 	private String radte;
 	private String cpdate;
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 
 	public String getUsername() {
 		return username;
@@ -101,6 +109,7 @@ public class User implements Serializable {
 	public void parseJSON(JSONObject json) {
 		try {
 			JSONObject body = json.getJSONObject("body");
+			setUserid(body.optString("userid"));
 			setUsername(body.optString("username"));
 			setPassword(body.optString("password"));
 

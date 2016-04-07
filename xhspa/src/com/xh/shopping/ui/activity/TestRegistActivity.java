@@ -20,7 +20,6 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.net.Network;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;

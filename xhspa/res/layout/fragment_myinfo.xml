@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/com.xh.shopping"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_eeeeee"
@@ -9,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        tools:ignore="UselessParent" >
 
         <include layout="@layout/layout_head" />
 
@@ -40,7 +42,8 @@
                     android:layout_centerVertical="true"
                     android:text="头像"
                     android:textColor="@color/color_888888"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
                 <ImageView
                     android:id="@+id/info_logo_action"
@@ -82,7 +85,8 @@
                     android:layout_centerVertical="true"
                     android:text="昵称"
                     android:textColor="@color/color_888888"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/info_nickname_tv"
@@ -94,7 +98,9 @@
                     android:gravity="center_vertical"
                     android:text="暮东海"
                     android:textColor="@color/app_font_gray"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
+
             </RelativeLayout>
 
             <ImageView
@@ -116,7 +122,9 @@
                     android:drawableRight="@drawable/build_details"
                     android:text="修改密码"
                     android:textColor="@color/color_888888"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
             </RelativeLayout>
         </LinearLayout>
 
@@ -147,7 +155,8 @@
                 android:gravity="center_vertical"
                 android:text="个人信息"
                 android:textColor="#0a67ae"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
 
             <RelativeLayout
                 android:id="@+id/info_phone_r"
@@ -160,7 +169,8 @@
                     android:layout_centerVertical="true"
                     android:text="手机"
                     android:textColor="@color/color_888888"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/info_phone_tv"
@@ -170,7 +180,9 @@
                     android:gravity="center_vertical"
                     android:text="18380287535"
                     android:textColor="@color/app_font_gray"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
+
             </RelativeLayout>
 
             <ImageView
@@ -190,7 +202,8 @@
                     android:layout_centerVertical="true"
                     android:text="姓名"
                     android:textColor="@color/color_888888"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/info_name_tv"
@@ -200,7 +213,9 @@
                     android:gravity="center_vertical"
                     android:text="刘能"
                     android:textColor="@color/app_font_gray"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
+
             </RelativeLayout>
 
             <ImageView
@@ -220,7 +235,8 @@
                     android:layout_centerVertical="true"
                     android:text="注册时间"
                     android:textColor="@color/color_888888"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/create_time_tv"
@@ -230,7 +246,9 @@
                     android:gravity="center_vertical"
                     android:text="2015-12-22 12:41:55"
                     android:textColor="@color/app_font_gray"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
+
             </RelativeLayout>
         </LinearLayout>
 
@@ -250,7 +268,9 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:text="退出账号"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
         </LinearLayout>
     </LinearLayout>
 

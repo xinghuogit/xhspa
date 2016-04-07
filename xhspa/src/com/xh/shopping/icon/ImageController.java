@@ -121,6 +121,7 @@ public class ImageController {
 	 * @param pixels
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public BitmapDrawable toRoundCorner(BitmapDrawable bitmapDrawable,
 			int pixels) {
 		Bitmap bitmap = bitmapDrawable.getBitmap();
@@ -364,6 +365,7 @@ public class ImageController {
 	 * @return
 	 */
 	public Drawable bitmapToDrawableByBD(Bitmap bitmap) {
+		@SuppressWarnings("deprecation")
 		Drawable drawable = new BitmapDrawable(bitmap);
 		return drawable;
 	}

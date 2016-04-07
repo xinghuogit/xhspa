@@ -22,6 +22,7 @@ public class SDUtil {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public String getSDTotalSize() {
 		File path = Environment.getExternalStorageDirectory();
 		StatFs stat = new StatFs(path.getPath());

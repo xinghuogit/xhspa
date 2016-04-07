@@ -14,12 +14,10 @@
  ************************************************************************************************/
 package com.xh.shopping.ui;
 
-import com.xh.shopping.R;
-import com.xh.shopping.setting.SettingHelper;
-import com.xh.shopping.util.UIHelper;
-
 import android.app.Activity;
 import android.os.Bundle;
+import com.xh.shopping.R;
+import com.xh.shopping.setting.SettingHelper;
 
 /**
  * @filename 文件名称：TextActivity.java

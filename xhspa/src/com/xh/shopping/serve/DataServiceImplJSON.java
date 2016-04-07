@@ -14,7 +14,11 @@
  ************************************************************************************************/
 package com.xh.shopping.serve;
 
+import java.io.UnsupportedEncodingException;
+import org.json.JSONException;
 import org.json.JSONObject;
+import android.util.Log;
+import com.xh.shopping.constant.Constant;
 
 /**
  * @author 创建作者LI：李加蒙
@@ -67,17 +71,55 @@ public abstract class DataServiceImplJSON extends DataServiceImpl {
 	 */
 	@Override
 	protected void doStartService() {
-		// 获取URL
-		String url = getFullURL();
-		// JSON对象
-		JSONObject jsonObject = null;
-		// 返回二进制字节流
-		byte[] result = null;
-		// 是否把数据缓存到本地
-		boolean isCached = false;
-
-		if (isCachingEnabled()) {
-			
+		try {
+			// 获取URL
+			String url = getFullURL();
+			// JSON对象
+			JSONObject jsonObject = null;
+			// 返回二进制字节流
+			byte[] result = null;
+			// 是否把数据缓存到本地
+			boolean isCached = false;
+			// 使用缓存
+			if (isCachingEnabled()) {
+				// 获取缓存数据
+				result = ServiceResultCache.getInstance().getCache(url,
+						Constant.TIMEOUT_CONNECTION);
+			}
+			// 如果不是用缓存或者缓存数据为空
+			if (result == null) {
+				// 联网获取
+				result = sendServiceRequest(url, getParams());
+			} else {
+				// 设置为把数据添加到缓存
+				isCached = true;
+			}
+			// 网络数据字符串
+			String strResult = null;
+			if (result != null) {
+				// 把二进制字节流转为字符串
+				strResult = new String(result, Constant.UTF_8);
+			}
+			if (Constant.SHOW) {
+				System.out.println("url:\n" + url + "strResult:\n" + strResult);
+			}
+			// 转换为JSON
+			jsonObject = new JSONObject(strResult);
+			// 判断JSON是否正常
+			if (isJSONObject(jsonObject)) {
+				// 下发到当前使用网络服务的类 以便操作数据
+				propagateServiceSuccess(buildObjectModel(jsonObject));
+				if (isCached) {
+					// 添加到缓存
+					ServiceResultCache.getInstance().addCache(result, url);
+				}
+			}
+		} catch (UnsupportedEncodingException e) {
+			Log.i(TAG, "编码转换异常");
+			e.printStackTrace();
+		} catch (JSONException e) {
+			Log.i(TAG, "字符串转换成JSON异常");
+			e.printStackTrace();
 		}
 	}
 }

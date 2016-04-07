@@ -20,6 +20,8 @@ import java.io.Serializable;
  * @contents 内容摘要：常量
  */
 public class Constant implements Serializable {
+	public static boolean SHOW = true;
+
 	/**
 	 * 设置编码
 	 */
