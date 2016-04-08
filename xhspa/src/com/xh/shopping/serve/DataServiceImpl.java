@@ -20,7 +20,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
@@ -30,6 +32,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
+
+import android.util.Base64;
 import android.util.Log;
 import com.xh.shopping.R;
 import com.xh.shopping.constant.Constant;
@@ -81,7 +85,7 @@ abstract class DataServiceImpl implements DataService {
 	/**
 	 * 设置 数据Service委派 当前Activity
 	 */
-	public void setDataServiceDelegate(DataServiceDelegate dataServiceDelegate) {
+	public void setDataService(DataServiceDelegate dataServiceDelegate) {
 		this.dataServiceDelegate = dataServiceDelegate;
 	}
 
@@ -151,7 +155,7 @@ abstract class DataServiceImpl implements DataService {
 		try {
 			httpUrl = new URL(url);
 			HttpURLConnection connection = (HttpURLConnection) httpUrl
-					.openConnection();
+					.openConnection(getProxy());
 			connection.setRequestMethod(type);
 			connection.setConnectTimeout(Constant.TIMEOUT_CONNECTION);
 			connection.setDoInput(true);
@@ -370,9 +374,31 @@ abstract class DataServiceImpl implements DataService {
 				String userpsw = userInfo.getUsername() + ":"
 						+ userInfo.getPassword();
 				Log.i(TAG, "userpsw:" + userpsw);
-				connection.setRequestProperty("Authorization", userpsw);
+
+				String headerKey = "Authorization";
+				String headerValue = "Basic "
+						+ Base64.encodeToString(userpsw.getBytes(),
+								Base64.DEFAULT);
+				Log.i(TAG, "headerKey:" + headerKey + "\nheaderValue"
+						+ headerValue);
+				connection.setRequestProperty(headerKey, headerValue);
 			}
 		}
+	}
+
+	/**
+	 * 添加代理
+	 * 
+	 * @return
+	 */
+	private static Proxy getProxy() {
+		String host = System.setProperty("http.proxyHost", "www.proxy.com");
+		int port = Integer
+				.valueOf(System.setProperty("http.proxyPort", "8080"));
+
+		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(host,
+				port));
+		return proxy;
 	}
 
 	/**
