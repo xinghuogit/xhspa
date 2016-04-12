@@ -193,4 +193,15 @@ public class UIHelper {
 		return isSDPresent;
 	}
 
+	@SuppressWarnings("unchecked")
+	/**
+	 * 获取id
+	 * @param parent
+	 * @param id
+	 * @return
+	 */
+	public static <T extends View> T getfinaView(View parent, int id) {
+		return (T) parent.findViewById(id);
+	}
+
 }

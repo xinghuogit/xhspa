@@ -22,7 +22,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.StatFs;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -35,6 +34,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xh.shopping.R;
+import com.xh.shopping.serve.DataService;
+import com.xh.shopping.serve.DataServiceDelegate;
+import com.xh.shopping.serve.extend.Test2Service;
+import com.xh.shopping.serve.extend.TestService;
 import com.xh.shopping.setting.SettingHelper;
 import com.xh.shopping.ui.fragment.CartFragment;
 import com.xh.shopping.ui.fragment.CategoryFragment;
@@ -48,7 +51,8 @@ import com.xh.shopping.util.UIHelper;
  * @filename 文件名称：MainActivity.java
  * @contents 内容摘要：首页界面MainActivity
  */
-public class MainActivity extends FragmentActivity implements OnClickListener {
+public class MainActivity extends FragmentActivity implements OnClickListener,
+		DataServiceDelegate {
 	private LinearLayout linearLayout;
 	private RelativeLayout relativeLayout;
 	private ImageView layout_head_left_iv, layout_head_centre_iv,
@@ -78,13 +82,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 
 		SDUtil sdUtil = new SDUtil(MainActivity.this);
-		System.out.println("全部SD"+sdUtil.getSDTotalSize()+"\n可用SD"+
-				sdUtil.getSDAvailableSize()+"\n全部ROM"+
-				sdUtil.getRomTotalSize()+"\n可用ROM"+
-				sdUtil.getRomAvailableSize()
-				
-				);
-
+		System.out.println("全部SD" + sdUtil.getSDTotalSize() + "\n可用SD"
+				+ sdUtil.getSDAvailableSize() + "\n全部ROM"
+				+ sdUtil.getRomTotalSize() + "\n可用ROM"
+				+ sdUtil.getRomAvailableSize());
 
 		// 设置ApplicationContext
 		SettingHelper.getInstance().setApplicationContext(MainActivity.this);
@@ -149,12 +150,48 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		buttom_tv_my.setOnClickListener(this);
 
 		buttom_tv_home.performClick();
+
+		finaView(R.id.layout_head_left_r).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						System.out.println("testservice");
+						TestService service = new TestService();
+						service.setDataService(MainActivity.this);
+						service.setAuth(true);
+						service.setCachingEnabled(false);
+						service.start();
+					}
+				});
+		finaView(R.id.layout_head_right_r).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						System.out.println("testservice2");
+						Test2Service service = new Test2Service();
+						service.setDataService(MainActivity.this);
+						service.setAuth(true);
+						service.setCachingEnabled(false);
+						service.start();
+					}
+				});
+
+	}
+
+	/**
+	 * 获取id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private <T extends View> T finaView(int id) {
+		return (T) findViewById(id);
 	}
 
 	@SuppressLint("Recycle")
 	@Override
 	public void onClick(View v) {
-
 		if (currentView != null && currentView.equals(v)) {
 			return;
 		}
@@ -230,5 +267,17 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			}
 		}
 	};
+
+	@Override
+	public void onServiceSuccess(DataService service, Object object) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onServiceFailure(DataService service, String ret) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

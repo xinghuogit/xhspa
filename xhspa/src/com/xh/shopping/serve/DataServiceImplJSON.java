@@ -74,6 +74,7 @@ public abstract class DataServiceImplJSON extends DataServiceImpl {
 	 */
 	@Override
 	protected void doStartService() {
+		System.out.println("1111111111111111111111111111");
 		try {
 			// 获取URL
 			String url = getFullURL();

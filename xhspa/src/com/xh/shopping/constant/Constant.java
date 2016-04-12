@@ -52,6 +52,12 @@ public class Constant implements Serializable {
 	public static final String CODE_NORMAL = "0000";
 
 	/**
+	 * 请求数据类型
+	 */
+	public static final String FORMDATA = "multipart/form-data";
+	public static final String TEXTHTML = "text/html";
+
+	/**
 	 * 短信验证
 	 */
 	public static final String SMS_APPKEY = "d84ab355d37a";
@@ -69,6 +75,8 @@ public class Constant implements Serializable {
 	 */
 	public static final String BOUNDARY = "----WebKitFormBoundaryEnPfBCbCqpmt7O2G";
 
+	public static final String END = "\r\n";
+
 	/**
 	 * 家
 	 */
@@ -81,7 +89,7 @@ public class Constant implements Serializable {
 	 */
 	// public static final String START_SERVICE =
 	// "http://192.168.56.1:8080/xhsp/";
-	public static final String START_SERVICE = "http://192.168.31.108:8080/xhsp/";
+	public static final String START_SERVICE = "http://192.168.31.109:8080/xhsp/";
 
 	public static String getService(String str) {
 		return START_SERVICE + str;
