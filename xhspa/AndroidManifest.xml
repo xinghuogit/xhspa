@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.xh.shopping"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="21"
+        tools:ignore="OldTargetApi" />
 
     <application
         android:name="com.xh.shopping.setting.XhspApplication"
@@ -15,7 +17,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.xh.shopping.ui.MainActivity"
+            android:name="com.xh.shopping.ui.activity.TestRegistActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,12 +33,6 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <!-- 短信验证 -->
 
-        <activity
-            android:name="com.xh.shopping.ui.activity.TestRegistActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" >
-        </activity>
         <activity
             android:name="com.xh.shopping.ui.TextActivity"
             android:label="@string/app_name"
@@ -67,21 +63,65 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.xh.shopping.ui.UploadPhotoActivity1"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 获取设备信息包括电话号码 -->
+    <!-- 允许程序打开网络 -->
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        tools:ignore="ManifestOrder" />
 
+    <!-- 允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 允许程序改变WiFi连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 获取设备信息包括电话号码 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- 照相机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 照相机 -->
+    <uses-feature android:name="android.hardware.camera" />
+    <!-- 相机自动聚焦 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <!-- SDK1.5需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 用于访问WiFi网络信息，WiFi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 允许应用读取低级别的系统日志文件 -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <!-- 发送短信权限 -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <!-- 拨打电话权限 -->
+    <uses-permission android:name="android.permisson.CALL_PHONE" />
 
     <!-- 使用短信息验证开始 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 使用短信息验证结束 -->
+
+
+    <!-- 杀死APP -->
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
 </manifest>

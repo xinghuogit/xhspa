@@ -22,6 +22,9 @@ import java.io.Serializable;
 public class Constant implements Serializable {
 	public static boolean SHOW = true;
 
+	// 去相册或者相机照相
+	public static final int PHOTO = 0x000101;
+
 	/**
 	 * 设置编码
 	 */
@@ -52,6 +55,17 @@ public class Constant implements Serializable {
 	public static final String CODE_NORMAL = "0000";
 
 	/**
+	 * 请求数据类型
+	 */
+	public static final String FORMDATA = "multipart/form-data";
+	public static final String TEXTHTML = "text/html";
+
+	// public static final String HOST = "192.168.31.109";
+	// public static final String PORT = "8080";
+	public static final String HOST = "192.168.31.133";
+	public static final String PORT = "80";
+
+	/**
 	 * 短信验证
 	 */
 	public static final String SMS_APPKEY = "d84ab355d37a";
@@ -69,6 +83,8 @@ public class Constant implements Serializable {
 	 */
 	public static final String BOUNDARY = "----WebKitFormBoundaryEnPfBCbCqpmt7O2G";
 
+	public static final String END = "\r\n";
+
 	/**
 	 * 家
 	 */
@@ -79,9 +95,7 @@ public class Constant implements Serializable {
 	/**
 	 * 公司
 	 */
-	// public static final String START_SERVICE =
-	// "http://192.168.56.1:8080/xhsp/";
-	public static final String START_SERVICE = "http://192.168.31.108:8080/xhsp/";
+	public static final String START_SERVICE = "http://192.168.31.109:8080/xhsp/";
 
 	public static String getService(String str) {
 		return START_SERVICE + str;

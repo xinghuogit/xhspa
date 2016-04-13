@@ -15,6 +15,9 @@
 package com.xh.shopping.serve;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -30,18 +33,19 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 import android.util.Base64;
 import android.util.Log;
-import com.xh.shopping.R;
+
 import com.xh.shopping.constant.Constant;
-import com.xh.shopping.model.User;
-import com.xh.shopping.setting.SettingHelper;
 import com.xh.shopping.util.DeviceUtil;
+import com.xh.shopping.util.FilePartUtil;
+import com.xh.shopping.util.PartUtil;
+import com.xh.shopping.util.StringPartUtil;
 import com.xh.shopping.util.StringUtil;
-import com.xh.shopping.util.ToastUtil;
 
 /**
  * @author 创建作者LI：李加蒙
@@ -95,7 +99,7 @@ abstract class DataServiceImpl implements DataService {
 	 * @return
 	 */
 	public boolean hasDelegate() {
-		return hasDelegate();
+		return getDataServiceDelegate() != null;
 	}
 
 	/**
@@ -150,7 +154,8 @@ abstract class DataServiceImpl implements DataService {
 	 *            请求地址
 	 * @return
 	 */
-	private static HttpURLConnection getHttpConnection(String type, String url) {
+	private HttpURLConnection getHttpConnection(String type, String url,
+			String contentType) {
 		URL httpUrl;
 		try {
 			httpUrl = new URL(url);
@@ -160,6 +165,10 @@ abstract class DataServiceImpl implements DataService {
 			connection.setConnectTimeout(Constant.TIMEOUT_CONNECTION);
 			connection.setDoInput(true);
 			connection.setDoInput(true);
+			if (contentType.equals(Constant.FORMDATA)) {
+				connection.setRequestProperty("Content-Type",
+						"multipart/form-data; boundary=" + Constant.BOUNDARY);
+			}
 			// 设置使用APP
 			connection.setRequestProperty("Host", "xhspa.com");
 			// 设置语言
@@ -170,6 +179,7 @@ abstract class DataServiceImpl implements DataService {
 			// 设置平台信息
 			connection.setRequestProperty(HTTP.USER_AGENT, DeviceUtil
 					.getInstance().getUserAgent());
+			addHeader(connection);
 			return connection;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -284,22 +294,35 @@ abstract class DataServiceImpl implements DataService {
 			}
 			// data非空 post请求
 			if (data != null) {
-				connection = getHttpConnection(Constant.POST, url);
 				if (data instanceof List) {
+					System.out.println("data instanceof List");
+					connection = getHttpConnection(Constant.POST, url,
+							Constant.FORMDATA);
+					setData((List<PartUtil>) data, connection);
 				} else if (data instanceof Map) {
 					// 解析Map类型data数据，并且写入到connection
+					connection = getHttpConnection(Constant.POST, url,
+							Constant.TEXTHTML);
 					submitMap((Map<String, Object>) data, connection);
 				}
-				addHeader(connection);
+				// addHeader(connection);
 			} else {// get请求
-				connection = getHttpConnection(Constant.GET, url);
-				addHeader(connection);
+				connection = getHttpConnection(Constant.GET, url,
+						Constant.TEXTHTML);
+				// addHeader(connection);
 			}
 
 			// 返回状态码
 			int statusCode = connection.getResponseCode();
 			// 返回信息
 			String message = connection.getResponseMessage();
+
+			Log.i(TAG, "statusCode:" + statusCode + "\nmessage：" + message);
+
+			if (statusCode != 200) {
+				Log.i(TAG, "error：" + message);
+				return null;
+			}
 			StringBuffer buffer = new StringBuffer();
 			// connection获取输入流
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -324,10 +347,81 @@ abstract class DataServiceImpl implements DataService {
 			Log.i(TAG, "数据转化成为UTF-8字符串异常");
 			e.printStackTrace();
 		} catch (IOException e) {
-			Log.i(TAG, "Map数据（post）写入connection异常");
+			Log.i(TAG, "从网络获取数据异常");
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * 解析List类型data数据，并且写入到connection
+	 * 
+	 * @param parts
+	 * @param connection
+	 */
+	private void setData(List<PartUtil> parts, HttpURLConnection connection) {
+		DataOutputStream dos = null;
+		FileInputStream fis = null;
+		try {
+			dos = new DataOutputStream(connection.getOutputStream());
+			StringBuilder sb = new StringBuilder();
+			for (PartUtil partUtil : parts) {
+				if (partUtil instanceof StringPartUtil) {
+					StringPartUtil stringPartUtil = (StringPartUtil) partUtil;
+					String key = stringPartUtil.getKey();
+					String value = stringPartUtil.getValue();
+					sb.append(Constant.BOUNDARY__ + Constant.BOUNDARY
+							+ Constant.END);
+					sb.append("Content-Disposition: form-data; name=\"" + key
+							+ "\"" + Constant.END);
+					sb.append(("Content-Type: text/plain; charset=" + Constant.UTF_8));
+					sb.append("Content-Transfer-Encoding: 8bit" + Constant.END);
+					sb.append(Constant.END);
+					sb.append(value);
+					sb.append(Constant.END);
+					dos.write(sb.toString().getBytes());
+				}
+				if (partUtil instanceof FilePartUtil) {
+					FilePartUtil filePartUtil = (FilePartUtil) partUtil;
+					String key = filePartUtil.getKey();
+					String value = filePartUtil.getValue();
+
+					dos.writeBytes(Constant.BOUNDARY__ + Constant.BOUNDARY
+							+ Constant.END);
+					dos.writeBytes("Content-Disposition: form-data;"
+							+ "name=\"" + key + "\";filename=\"" + value + "\""
+							+ Constant.END);
+					dos.writeBytes(Constant.END);
+					fis = new FileInputStream(new File(value));
+					System.out.println("\nname:" + key + "\nfilename:" + value);
+					byte[] b = new byte[1024 * 4];
+					int len = -1;
+					while ((len = fis.read(b)) != -1) {
+						dos.write(b, 0, len);
+					}
+					dos.writeBytes(Constant.END);
+					fis.close();
+				}
+			}
+			Log.i(TAG, "sb:" + sb.toString());
+			dos.writeBytes(Constant.BOUNDARY__ + Constant.BOUNDARY
+					+ Constant.BOUNDARY__ + Constant.END);
+			dos.flush();
+		} catch (IOException e) {
+			Log.i(TAG, "List写入数据到connection异常");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fis != null) {
+					fis.close();
+				}
+				if (dos != null) {
+					dos.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -341,21 +435,27 @@ abstract class DataServiceImpl implements DataService {
 	 *             写入connection异常
 	 */
 	private void submitMap(Map<String, Object> data,
-			HttpURLConnection connection) throws IOException {
-		StringBuffer buffer = new StringBuffer();
-		// 迭代出data的数据
-		for (String key : data.keySet()) {
-			String value = String.valueOf(data.get(key));
-			// 用键队值的方式拼接成字符串
-			buffer.append(key + "=" + value + "&");
+			HttpURLConnection connection) {
+		try {
+
+			StringBuffer buffer = new StringBuffer();
+			// 迭代出data的数据
+			for (String key : data.keySet()) {
+				String value = String.valueOf(data.get(key));
+				// 用键队值的方式拼接成字符串
+				buffer.append(key + "=" + value + "&");
+			}
+			// 拼接好字符串去掉最后一个&
+			String content = buffer.toString()
+					.subSequence(0, buffer.toString().length() - 1).toString();
+			// connection获取一个输出流
+			OutputStream os = connection.getOutputStream();
+			// 字符串写入到输出流中
+			os.write(content.getBytes());
+		} catch (IOException e) {
+			Log.i(TAG, "Map写入数据到connection异常");
+			e.printStackTrace();
 		}
-		// 拼接好字符串去掉最后一个&
-		String content = buffer.toString()
-				.subSequence(0, buffer.toString().length() - 1).toString();
-		// connection获取一个输出流
-		OutputStream os = connection.getOutputStream();
-		// 字符串写入到输出流中
-		os.write(content.getBytes());
 	}
 
 	/**
@@ -364,25 +464,32 @@ abstract class DataServiceImpl implements DataService {
 	 * @param connection
 	 */
 	private void addHeader(HttpURLConnection connection) {
-		if (isAuth()) {
-			User userInfo = SettingHelper.getInstance().getUserInfo();
-			if (userInfo == null) {
-				ToastUtil.makeToast(SettingHelper.getInstance()
-						.getApplicationContext(), R.string.logininfo_error);
-				return;
-			} else {
-				String userpsw = userInfo.getUsername() + ":"
-						+ userInfo.getPassword();
-				Log.i(TAG, "userpsw:" + userpsw);
-
+		try {
+			if (isAuth()) {
+				// User userInfo = SettingHelper.getInstance().getUserInfo();
+				// if (userInfo == null) {
+				// System.out.println(SettingHelper.getInstance()
+				// .getApplicationContext().getResources()
+				// .getString(R.string.logininfo_error));
+				// return;
+				// } else {
+				// String userpsw = userInfo.getUsername() + ":"
+				// + userInfo.getPassword();
+				// String headerKey = "Authorization";
+				// String headerValue = "Basic "
+				// + Base64.encodeToString(userpsw.getBytes(),
+				// Base64.DEFAULT);
+				// connection.setRequestProperty(headerKey, headerValue);
+				// }
+				String userpsw = "18888881004:e10adc3949ba59abbe56e057f20f883e";
 				String headerKey = "Authorization";
 				String headerValue = "Basic "
 						+ Base64.encodeToString(userpsw.getBytes(),
 								Base64.DEFAULT);
-				Log.i(TAG, "headerKey:" + headerKey + "\nheaderValue"
-						+ headerValue);
 				connection.setRequestProperty(headerKey, headerValue);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -392,13 +499,25 @@ abstract class DataServiceImpl implements DataService {
 	 * @return
 	 */
 	private static Proxy getProxy() {
-		String host = System.setProperty("http.proxyHost", "www.proxy.com");
-		int port = Integer
-				.valueOf(System.setProperty("http.proxyPort", "8080"));
+		try {
+			// 系统属性以前的值，如果没有以前的值，则返回 null。
+			System.setProperty("http.proxyHost", Constant.HOST);
+			System.setProperty("http.proxyPort", Constant.PORT);
 
-		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(host,
-				port));
-		return proxy;
+			String host = System.setProperty("http.proxyHost", Constant.HOST);
+			int port = Integer.valueOf(System.setProperty("http.proxyPort",
+					Constant.PORT));
+			// String host = System.setProperty("http.proxyHost",
+			// "192.168.31.109");
+			// int port = Integer
+			// .valueOf(System.setProperty("http.proxyPort", "8080"));
+			Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(
+					host, port));
+			return proxy;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**

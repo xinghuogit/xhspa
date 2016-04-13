@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -8,24 +9,48 @@
         android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="1838028754" />
+        android:text="1838028754"
+        tools:ignore="HardcodedText,TextFields" />
 
     <EditText
         android:id="@+id/psw1"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="li1128" />
+        android:text="li1128"
+        tools:ignore="HardcodedText,TextFields" />
 
     <EditText
         android:id="@+id/psw2"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="li1128" />
+        android:text="li1128"
+        tools:ignore="HardcodedText,TextFields" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="确认注册" />
+        android:text="确认注册"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="发送请求"
+        tools:ignore="HardcodedText" />
+
+    <com.xh.shopping.view.GridViewForScrollView
+        android:id="@+id/addimg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_ffffff"
+        android:horizontalSpacing="3dp"
+        android:numColumns="4"
+        android:padding="10dp"
+        android:scrollbars="none"
+        android:verticalSpacing="5dp" >
+    </com.xh.shopping.view.GridViewForScrollView>
 
 </LinearLayout>
