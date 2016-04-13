@@ -12,6 +12,9 @@
     <string name="not_network">网络未连接，请设置</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
+    <string name="cancel_exit">取消</string>
+    <string name="confirm_exit">确定</string>
+    <string name="no_use_sd_card">没有检测到SD卡</string>
 
     <!-- 四个底部按钮 -->
     <string name="home">首页</string>

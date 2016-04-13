@@ -21,14 +21,22 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.xh.ios.view.SheetDialog;
+import com.xh.ios.view.SheetDialog.OnSheetItemClickListener;
+import com.xh.ios.view.SheetDialog.SheetItemColor;
 import com.xh.shopping.R;
+import com.xh.shopping.constant.Constant;
+import com.xh.shopping.ui.UploadPhotoActivity1;
 
 /**
  @filename文件名称：UIHelper.java
@@ -204,4 +212,71 @@ public class UIHelper {
 		return (T) parent.findViewById(id);
 	}
 
+	public static void closeInput(Activity activity) {
+		InputMethodManager imm = (InputMethodManager) activity
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (imm.isActive() && activity.getCurrentFocus() != null) {
+			if (activity.getCurrentFocus().getWindowToken() != null) {
+				imm.hideSoftInputFromWindow(activity.getCurrentFocus()
+						.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param activity
+	 * @param isAddTime
+	 *            是否添加时间水印 true为是 false为不是
+	 * @param isstartPhotoZoom
+	 *            是否要截图 true为是 false为不是
+	 * @param istheme1
+	 *            true是用相机 false为不用相机
+	 * @param istheme2
+	 *            true是用图库 false为不用图库
+	 */
+	public static void showImage(final Activity activity,
+			final boolean isAddTime, final boolean isstartPhotoZoom,
+			final boolean istheme1, final boolean istheme2) {
+		UIHelper.closeInput(activity);
+		SheetDialog dialog = new SheetDialog(activity).builder();
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		if (istheme1) {
+			dialog.addSheetItem("用相机选择图片", SheetItemColor.Blue,
+					new OnSheetItemClickListener() {
+						@Override
+						public void onClick(int which) {
+							Intent intent1 = new Intent(activity,
+									UploadPhotoActivity1.class);
+
+							intent1.putExtra("service", "service1");
+							intent1.putExtra("theme", 1);
+							intent1.putExtra("addTime", isAddTime);
+							intent1.putExtra("startPhotoZoom", isstartPhotoZoom);
+							activity.startActivityForResult(intent1,
+									Constant.PHOTO);
+						}
+					});
+		}
+		if (istheme2) {
+			dialog.addSheetItem("去相册选择图片", SheetItemColor.Blue,
+					new OnSheetItemClickListener() {
+
+						@Override
+						public void onClick(int which) {
+
+							Intent intent1 = new Intent(activity,
+									UploadPhotoActivity1.class);
+							intent1.putExtra("service", "service1");
+							intent1.putExtra("theme", 2);
+							intent1.putExtra("addTime", isAddTime);
+							intent1.putExtra("startPhotoZoom", isstartPhotoZoom);
+							activity.startActivityForResult(intent1,
+									Constant.PHOTO);
+						}
+					});
+		}
+		dialog.show();
+	}
 }

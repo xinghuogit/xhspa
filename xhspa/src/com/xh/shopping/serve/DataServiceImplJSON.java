@@ -74,7 +74,6 @@ public abstract class DataServiceImplJSON extends DataServiceImpl {
 	 */
 	@Override
 	protected void doStartService() {
-		System.out.println("1111111111111111111111111111");
 		try {
 			// 获取URL
 			String url = getFullURL();
@@ -105,10 +104,13 @@ public abstract class DataServiceImplJSON extends DataServiceImpl {
 				strResult = new String(result, Constant.UTF_8);
 			}
 			if (Constant.SHOW) {
-				System.out.println("url:\n" + url + "strResult:\n" + strResult);
+				System.out.println("url:" + url + "\nstrResult:" + strResult);
 			}
 			// 转换为JSON
 			jsonObject = new JSONObject(strResult);
+			if (Constant.SHOW) {
+				System.out.println("jsonObject:\n" + jsonObject);
+			}
 			// 判断JSON是否正常
 			if (isJSONObject(jsonObject)) {
 				// 下发到当前使用网络服务的类 以便操作数据
@@ -120,9 +122,11 @@ public abstract class DataServiceImplJSON extends DataServiceImpl {
 			}
 		} catch (UnsupportedEncodingException e) {
 			Log.i(TAG, "编码转换异常");
+			propagateServiceFailure("服务器未响应");
 			e.printStackTrace();
 		} catch (JSONException e) {
 			Log.i(TAG, "字符串转换成JSON异常");
+			propagateServiceFailure("服务器未响应");
 			e.printStackTrace();
 		}
 	}

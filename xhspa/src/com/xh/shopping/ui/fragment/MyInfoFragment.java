@@ -14,18 +14,11 @@
  ************************************************************************************************/
 package com.xh.shopping.ui.fragment;
 
-import java.io.File;
-
-import zhangphil.iosdialog.widget.ActionSheetDialog;
-import zhangphil.iosdialog.widget.ActionSheetDialog.OnSheetItemClickListener;
-import zhangphil.iosdialog.widget.ActionSheetDialog.SheetItemColor;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -143,50 +136,50 @@ public class MyInfoFragment extends Fragment implements OnClickListener {
 	}
 
 	public void showPhoto() {
-		new ActionSheetDialog(activity)
-				.builder()
-				.setCancelable(true)
-				.setCanceledOnTouchOutside(true)
-				.addSheetItem(getString(R.string.change_icon_photo),
-						SheetItemColor.Blue, new OnSheetItemClickListener() {
-							@Override
-							public void onClick(int which) {
-								// 激活系统图库，选择一张图片
-								Intent intent = new Intent(Intent.ACTION_PICK);
-								intent.setType("image/*");
-								// 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_PHOTOv
-								startActivityForResult(intent,
-										PHOTO_REQUEST_PHOTO);
-							}
-						})
-				.addSheetItem(getString(R.string.change_icon_camera),
-						SheetItemColor.Blue, new OnSheetItemClickListener() {
-							@Override
-							public void onClick(int which) {
-								// 激活相机
-								Intent intent = new Intent(
-										"android.media.action.IMAGE_CAPTURE");
-								// 判断存储卡是否可以用，可用进行存储
-								LocalCacheData.REPLACE_AVATAR_FILE = new File(
-										Environment
-												.getExternalStorageDirectory()
-												+ "/pintx2.0/", System
-												.currentTimeMillis() + ".jpg");
-								if (UIHelper.isSDPresent()) {
-									// if(!LocalCacheData.REPLACE_AVATAR_FILE.exists()){
-									// LocalCacheData.REPLACE_AVATAR_FILE.mkdirs();
-									// }
-									// 从文件中创建uri
-									Uri uri = Uri
-											.fromFile(LocalCacheData.REPLACE_AVATAR_FILE);
-									intent.putExtra(MediaStore.EXTRA_OUTPUT,
-											uri);
-								}
-								// 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
-								startActivityForResult(intent,
-										PHOTO_REQUEST_CAREMA);
-							}
-						}).show();
+//		new ActionSheetDialog(activity)
+//				.builder()
+//				.setCancelable(true)
+//				.setCanceledOnTouchOutside(true)
+//				.addSheetItem(getString(R.string.change_icon_photo),
+//						SheetItemColor.Blue, new OnSheetItemClickListener() {
+//							@Override
+//							public void onClick(int which) {
+//								// 激活系统图库，选择一张图片
+//								Intent intent = new Intent(Intent.ACTION_PICK);
+//								intent.setType("image/*");
+//								// 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_PHOTOv
+//								startActivityForResult(intent,
+//										PHOTO_REQUEST_PHOTO);
+//							}
+//						})
+//				.addSheetItem(getString(R.string.change_icon_camera),
+//						SheetItemColor.Blue, new OnSheetItemClickListener() {
+//							@Override
+//							public void onClick(int which) {
+//								// 激活相机
+//								Intent intent = new Intent(
+//										"android.media.action.IMAGE_CAPTURE");
+//								// 判断存储卡是否可以用，可用进行存储
+//								LocalCacheData.REPLACE_AVATAR_FILE = new File(
+//										Environment
+//												.getExternalStorageDirectory()
+//												+ "/pintx2.0/", System
+//												.currentTimeMillis() + ".jpg");
+//								if (UIHelper.isSDPresent()) {
+//									// if(!LocalCacheData.REPLACE_AVATAR_FILE.exists()){
+//									// LocalCacheData.REPLACE_AVATAR_FILE.mkdirs();
+//									// }
+//									// 从文件中创建uri
+//									Uri uri = Uri
+//											.fromFile(LocalCacheData.REPLACE_AVATAR_FILE);
+//									intent.putExtra(MediaStore.EXTRA_OUTPUT,
+//											uri);
+//								}
+//								// 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
+//								startActivityForResult(intent,
+//										PHOTO_REQUEST_CAREMA);
+//							}
+//						}).show();
 	}
 
 	@Override

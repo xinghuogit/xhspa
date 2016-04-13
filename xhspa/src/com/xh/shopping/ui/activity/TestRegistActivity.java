@@ -14,42 +14,59 @@
  ************************************************************************************************/
 package com.xh.shopping.ui.activity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.xh.shopping.R;
+import com.xh.shopping.adapter.GridImagesAdapter;
 import com.xh.shopping.constant.Constant;
 import com.xh.shopping.model.User;
+import com.xh.shopping.serve.DataService;
+import com.xh.shopping.serve.DataServiceDelegate;
 import com.xh.shopping.serve.JSONDataServiceImpl1;
+import com.xh.shopping.serve.extend.TestUploadService;
 import com.xh.shopping.setting.SettingHelper;
+import com.xh.shopping.ui.UploadPhotoActivity1;
+import com.xh.shopping.util.BitmapUtil;
+import com.xh.shopping.util.FilePartUtil;
 import com.xh.shopping.util.NetworkUtil;
+import com.xh.shopping.util.PartUtil;
+import com.xh.shopping.util.StringPartUtil;
 import com.xh.shopping.util.ToastUtil;
 import com.xh.shopping.util.UIHelper;
+import com.xh.shopping.view.GridViewForScrollView;
 
-/**
- @filename文件名称：RegistActivity1.java
- @content
- */
 /**
  * @FileName 文件名称：RegistActivity1.java
  * @Contents 内容摘要： 注册Activity
  */
 @SuppressLint("HandlerLeak")
-public class TestRegistActivity extends FragmentActivity {
+public class TestRegistActivity extends Activity implements DataServiceDelegate {
 	private EditText user, psw1, psw2;
 
 	private Button button;
+
+	private List<String> images = new ArrayList<String>();
+
+	private GridViewForScrollView addimg;
+
+	private GridImagesAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +76,58 @@ public class TestRegistActivity extends FragmentActivity {
 	}
 
 	private void findView() {
+		addimg = (GridViewForScrollView) findViewById(R.id.addimg);
+		adapter = new GridImagesAdapter(this);
+		addimg.setAdapter(adapter);
+
+		adapter.setData(BitmapUtil.tempSelectBitmap);
+		adapter.notifyDataSetChanged();
+
+		addimg.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				UIHelper.closeInput(TestRegistActivity.this);
+				if (position == BitmapUtil.tempSelectBitmap.size()) {
+					// showPopwindow();
+					UIHelper.showImage(TestRegistActivity.this, true, false,
+							true, false);
+				} else {
+					// Intent intent = new Intent(TestRegistActivity.this,
+					// GalleryActivity.class);
+					// intent.putExtra("showAlbum", false);
+					// intent.putExtra("position", "1");
+					// intent.putExtra("ID", arg2);
+					// startActivity(intent);
+				}
+			}
+		});
+
+		Button button2 = (Button) findViewById(R.id.button2);
+		button2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				List<PartUtil> list = new ArrayList<PartUtil>();
+				list.add(new StringPartUtil("user_id", "7"));
+				list.add(new StringPartUtil("amount", "666.66"));
+				list.add(new StringPartUtil("financeclass_id", "26"));
+				list.add(new StringPartUtil("content", "你的刚刚好"));
+				list.add(new StringPartUtil("paytime", "2016-03-30 15:43"));
+				list.add(new StringPartUtil("project", "测试1"));
+				for (int i = 0; i < BitmapUtil.tempSelectBitmap.size(); i++) {
+					list.add(new FilePartUtil("image" + i,
+							BitmapUtil.tempSelectBitmap.get(i)));
+				}
+
+				TestUploadService service = new TestUploadService();
+				service.setAuth(true);
+				service.setCachingEnabled(false);
+				service.setDataService(TestRegistActivity.this);
+				service.setList(list);
+				service.start();
+			}
+		});
+
 		user = (EditText) findViewById(R.id.user);
 		psw1 = (EditText) findViewById(R.id.psw1);
 		psw2 = (EditText) findViewById(R.id.psw2);
@@ -99,12 +168,32 @@ public class TestRegistActivity extends FragmentActivity {
 
 				UIHelper.showProgressDialog(TestRegistActivity.this,
 						R.string.regist_centre, false);
-				JSONDataServiceImpl1 service = new JSONDataServiceImpl1(Constant
-						.getService(Constant.API_REGISTER), map, handlerregist,
-						false);
+				JSONDataServiceImpl1 service = new JSONDataServiceImpl1(
+						Constant.getService(Constant.API_REGISTER), map,
+						handlerregist, false);
 				service.start();
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		adapter.setData(BitmapUtil.tempSelectBitmap);
+		if (BitmapUtil.tempSelectBitmap.size() < BitmapUtil.num
+				&& resultCode == RESULT_OK) {
+			for (int i = 0; i < UploadPhotoActivity1.imagePathList.size(); i++) {
+				BitmapUtil.tempSelectBitmap
+						.add(UploadPhotoActivity1.imagePathList.get(i));
+				runOnUiThread(new Runnable() {
+					public void run() {
+						adapter.setData(BitmapUtil.tempSelectBitmap);
+						adapter.notifyDataSetChanged();
+					}
+				});
+			}
+			UploadPhotoActivity1.imagePathList.clear();
+		}
+
 	}
 
 	protected void setLogin() {
@@ -189,8 +278,17 @@ public class TestRegistActivity extends FragmentActivity {
 			default:
 				break;
 			}
-
 		};
 	};
+
+	@Override
+	public void onServiceSuccess(DataService service, Object object) {
+
+	}
+
+	@Override
+	public void onServiceFailure(DataService service, String ret) {
+
+	}
 
 }
