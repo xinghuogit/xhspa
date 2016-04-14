@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="获取图片中"
-        android:textColor="@color/white"
+        android:textColor="@color/color_ffffff"
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>
