@@ -20,9 +20,7 @@ public class SDUtil {
 	public void outDeveil() {
 		System.out.println("全部SD" + getSDTotalSize() + "\n可用SD"
 				+ getSDAvailableSize() + "\n全部ROM" + getRomTotalSize()
-				+ "\n可用ROM" + getRomAvailableSize()
-
-		);
+				+ "\n可用ROM" + getRomAvailableSize() + "\nSDKINT" + getSDKINT());
 	}
 
 	public int getSDKINT() {

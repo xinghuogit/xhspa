@@ -19,6 +19,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.BaseAdapter;
 
 /**
@@ -89,7 +90,18 @@ public abstract class BasicAdapter extends BaseAdapter {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	public List getData() {
+	protected List getData() {
 		return datas;
+	}
+
+	/**
+	 * 寻找id
+	 * @param view
+	 * @param id
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	protected <T extends View> T findView(View view, int id) {
+		return (T) view.findViewById(id);
 	}
 }

@@ -14,117 +14,111 @@
  ************************************************************************************************/
 package com.xh.shopping.ui.fragment;
 
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.xh.shopping.R;
-import com.xh.shopping.constant.Constant;
-import com.xh.shopping.model.User;
-import com.xh.shopping.serve.JSONDataServiceImpl1;
-import com.xh.shopping.setting.SettingHelper;
-import com.xh.shopping.ui.MainActivity;
-import com.xh.shopping.ui.activity.ChangePasswordActivity;
-import com.xh.shopping.ui.activity.TestRegistActivity;
-import com.xh.shopping.util.ToastUtil;
-import com.xh.shopping.util.UIHelper;
+import com.xh.shopping.adapter.HomeAdapter;
+import com.xh.shopping.model.Product;
+import com.xh.shopping.ui.BaseFragment;
+import com.xh.shopping.view.RefreshLayout1;
+import com.xh.shopping.view.RefreshLayout1.OnLoadListener;
 
 /**
  * @filename 文件名称：HomeFragment.java
  * @contents 内容摘要：首页界面Fragment
  */
-public class HomeFragment extends Fragment {
-	private MainActivity activity;
-	private View parent;
+public class HomeFragment extends BaseFragment implements OnClickListener,
+		OnRefreshListener, OnLoadListener {
+
+	private RefreshLayout1 swipe_container;
+	private ListView listview;
+	private boolean isServiceRunning = false;
+	private int page = 1;
+
+	private HomeAdapter adapter = null;
+	private List<Product> products = new ArrayList<Product>();
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	protected int getLayoutView() {
+		return R.layout.fragment_home;
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater,
-			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_home, container, false);
+	protected void findView() {
+		swipe_container = findView(R.id.swipe_container);
+		listview = findView(R.id.listview);
 	}
 
 	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		activity = (MainActivity) getActivity();
-		parent = getView();
-
-		findView();
+	protected void setData() {
+		swipe_container.setColorSchemeResources(R.color.holo_light_blue,
+				R.color.holo_light_green, R.color.holo_light_orange,
+				R.color.holo_light_red);
+		layout_head_centre_tv.setText("首页");
+		layout_head_left_tv.setText("扫一扫");
+		layout_head_right_tv.setText("消息");
+		adapter = new HomeAdapter();
 	}
 
-	private void findView() {
-		parent.findViewById(R.id.home_regist).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						// startActivity(new Intent(activity,
-						// MyInfoActivity.class));
-						startActivity(new Intent(activity,
-								TestRegistActivity.class));
-					}
-				});
-		parent.findViewById(R.id.test).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						// startActivity(new Intent(activity,
-						// MyInfoActivity.class));
-						JSONDataServiceImpl1 service = new JSONDataServiceImpl1(
-"http://www.people.com.cn/", null,
-								handlerchange, true);
-						service.start();
-					}
-				});
+	@Override
+	protected void setListener() {
+		findView(R.id.layout_head_left_r).setOnClickListener(this);
+		findView(R.id.layout_head_right_r).setOnClickListener(this);
+		swipe_container.setOnRefreshListener(this);
+		swipe_container.setOnLoadListener(this);
+		startRefresh();
 	}
 
-	private Handler handlerchange = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			int arg = msg.arg1;
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.layout_head_left_r:
+			break;
+		case R.id.layout_head_right_r:
+			break;
+		default:
+			break;
+		}
+	}
 
-			switch (arg) {
-			case 0:
-				System.out.println("服务器连接失败");
-				UIHelper.dismissProgressDialog();
-				break;
-			case 1:
-				JSONObject json = (JSONObject) msg.obj;
-				User user = new User();
-				user.parseJSON(json);
-				if (SettingHelper.getInstance().getUserInfo() == null) {
-					System.out.println("返回数据异常，请重新登录");
-					ToastUtil.makeToast(activity, "返回数据异常，请重新登录");
-					return;
-				}
-				System.out.println("修改密码成功");
-				ToastUtil.makeToast(activity, "修改密码成功");
-				System.out
-						.println((SettingHelper.getInstance().getUserInfo() == null)
-								+ "");
-				UIHelper.dismissProgressDialog();
-				break;
-			case 2:
-				String msgRet = (String) msg.obj;
-				System.out.println("返回失败：" + msgRet);
-				ToastUtil.makeToast(activity, msgRet);
-				UIHelper.dismissProgressDialog();
-				break;
-			default:
-				break;
+	public void startRefresh() {
+		swipe_container.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				swipe_container.setRefreshing(true);
 			}
+		}, 1);
+		onRefresh();
+	}
 
-		};
-	};
+	@Override
+	public void onRefresh() {
+		if (isServiceRunning) {
+			return;
+		}
+		products.clear();
+		adapter.notifyDataSetChanged();
+		page = 1;
+		startService();
+	}
+
+	@Override
+	public void onLoad() {
+		if (isServiceRunning) {
+			return;
+		}
+		++page;
+		startService();
+	}
+
+	private void startService() {
+
+	}
+
 }

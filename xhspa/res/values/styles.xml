@@ -1,21 +1,8 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="@android:style/Theme.Light.NoTitleBar">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
+    <style name="AppBaseTheme" parent="@android:style/Theme.Light.NoTitleBar"></style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
+    <style name="AppTheme" parent="AppBaseTheme"></style>
 
     <style name="dialog_mass" parent="@android:style/Theme.Dialog">
 
@@ -30,6 +17,60 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 设置window背景透明，也就是去边框 -->
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- 横分割线 -->
+    <style name="split_line_h">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/color_d8d8d8</item>
+    </style>
+
+    <!-- 竖分割线 -->
+    <style name="split_line_v">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/color_d8d8d8</item>
+    </style>
+
+    <!-- 商品列表item布局 -->
+    <style name="list_item_product_l">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/shape_rect_product</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <!-- 商品列表item 图片 -->
+    <style name="list_item_product_iv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <!-- 商品列表item 名字 -->
+    <style name="list_item_product_name">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_222222</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">2</item>
+        <item name="android:text">华为 HUAWEI P9 3GB+32GB 全网通4G手机 流光金</item>
+    </style>
+
+    <!-- 商品列表item 价格 -->
+    <style name="list_item_product_price">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/app_overall</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:text">￥128</item>
     </style>
 
 </resources>

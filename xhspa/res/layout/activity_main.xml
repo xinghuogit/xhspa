@@ -1,38 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="true"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical" >
+    android:fitsSystemWindows="true" >
 
     <LinearLayout
-        android:id="@+id/layout_head_l"
+        android:id="@+id/layout_buttom_l"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical" >
+
+        <include layout="@layout/layout_buttom" />
     </LinearLayout>
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <LinearLayout
-            android:id="@+id/layout_buttom_l"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical" >
-
-            <include layout="@layout/layout_buttom" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/layout_buttom_l" >
-        </FrameLayout>
-    </RelativeLayout>
-
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layout_buttom_l" >
+    </FrameLayout>
+</RelativeLayout>

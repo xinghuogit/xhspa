@@ -41,7 +41,7 @@ public class TestUploadService extends DataServiceImplJSON {
 
 	@Override
 	protected String getFullURL() {
-		return "http://192.168.31.133/xfzxapi/api/Finance/payInput.json";
+		return "http://192.168.31.133/xfzxapi/api/Bychance/Input.json";
 		// return constructFullURL("upload.json");
 	}
 

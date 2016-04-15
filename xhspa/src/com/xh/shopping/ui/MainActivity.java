@@ -14,30 +14,18 @@ package com.xh.shopping.ui;
  * 修   改 人：
  * 修改内容：
  ************************************************************************************************/
-import java.io.File;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xh.shopping.R;
 import com.xh.shopping.serve.DataService;
 import com.xh.shopping.serve.DataServiceDelegate;
-import com.xh.shopping.serve.extend.Test2Service;
-import com.xh.shopping.serve.extend.TestService;
 import com.xh.shopping.setting.SettingHelper;
 import com.xh.shopping.ui.fragment.CartFragment;
 import com.xh.shopping.ui.fragment.CategoryFragment;
@@ -45,7 +33,6 @@ import com.xh.shopping.ui.fragment.HomeFragment;
 import com.xh.shopping.ui.fragment.MyFragment;
 import com.xh.shopping.util.DeviceUtil;
 import com.xh.shopping.util.SDUtil;
-import com.xh.shopping.util.UIHelper;
 
 /**
  * @filename 文件名称：MainActivity.java
@@ -53,39 +40,21 @@ import com.xh.shopping.util.UIHelper;
  */
 public class MainActivity extends FragmentActivity implements OnClickListener,
 		DataServiceDelegate {
-	private LinearLayout linearLayout;
-	private RelativeLayout relativeLayout;
-	private ImageView layout_head_left_iv, layout_head_centre_iv,
-			layout_head_right_iv;
-	private TextView layout_head_left_tv, layout_head_centre_tv,
-			layout_head_right_tv;
-
 	private TextView buttom_tv_home, buttom_tv_category, buttom_tv_cart,
 			buttom_tv_my;
 	private View currentView;
 
-	private HomeFragment homeFragment = new HomeFragment();
-	private CategoryFragment categoryFragment = new CategoryFragment();
-	private CartFragment cartFragment = new CartFragment();
-	private MyFragment myFragment = new MyFragment();
+	private HomeFragment homeFragment = null;
+	private CategoryFragment categoryFragment = null;
+	private CartFragment cartFragment = null;
+	private MyFragment myFragment = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		if (UIHelper.isSDPresent()) {
-			File ed = Environment.getExternalStorageDirectory();
-			// ed.get
-			File dd = Environment.getDataDirectory();
-			System.out.println("ed:" + ed.toString() + "\ndd:" + dd.toString());
 
-		}
-
-		SDUtil sdUtil = new SDUtil(MainActivity.this);
-		System.out.println("全部SD" + sdUtil.getSDTotalSize() + "\n可用SD"
-				+ sdUtil.getSDAvailableSize() + "\n全部ROM"
-				+ sdUtil.getRomTotalSize() + "\n可用ROM"
-				+ sdUtil.getRomAvailableSize());
+		new SDUtil(MainActivity.this).outDeveil();
 
 		// 设置ApplicationContext
 		SettingHelper.getInstance().setApplicationContext(MainActivity.this);
@@ -96,51 +65,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		DeviceUtil.getInstance().getPhoneInfo();
 		findView();
 		setListener();
-
-		Timer t = new Timer();
-		t.schedule(new TimerTask() {
-			public void run() {
-				// Looper.prepare();
-				// UserInfo userInfo =
-				// SettingHelper.getInstance().getUserInfo();
-				// startIntent(activity, userInfo.getRoleId(),
-				// userInfo.getCateId());
-				// Looper.loop();
-				mHandler.sendEmptyMessageAtTime(1, 2000);
-			}
-		}, 800);
 	}
 
 	@SuppressLint("InflateParams")
 	private void findView() {
-		linearLayout = (LinearLayout) findViewById(R.id.layout_head_l);
-		relativeLayout = (RelativeLayout) LayoutInflater.from(this).inflate(
-				R.layout.layout_head, null, false);
-		linearLayout.removeAllViews();
-		linearLayout.addView(relativeLayout);
-
-		layout_head_left_iv = (ImageView) findViewById(R.id.layout_head_left_iv);
-		layout_head_centre_iv = (ImageView) findViewById(R.id.layout_head_centre_iv);
-		layout_head_centre_iv = (ImageView) findViewById(R.id.layout_head_centre_iv);
-
-		layout_head_left_tv = (TextView) findViewById(R.id.layout_head_left_tv);
-		layout_head_centre_tv = (TextView) findViewById(R.id.layout_head_centre_tv);
-		layout_head_right_tv = (TextView) findViewById(R.id.layout_head_right_tv);
-
-		layout_head_left_tv.setText("扫一扫");
-		layout_head_left_tv.setVisibility(View.VISIBLE);
-		layout_head_right_tv.setText("消息");
-		layout_head_right_tv.setVisibility(View.VISIBLE);
-
-		// buttom_tv_home
-		// buttom_tv_category
-		// buttom_tv_cart
-		// buttom_tv_my
-
-		buttom_tv_home = (TextView) findViewById(R.id.buttom_tv_home);
-		buttom_tv_category = (TextView) findViewById(R.id.buttom_tv_category);
-		buttom_tv_cart = (TextView) findViewById(R.id.buttom_tv_cart);
-		buttom_tv_my = (TextView) findViewById(R.id.buttom_tv_my);
+		buttom_tv_home = finaView(R.id.buttom_tv_home);
+		buttom_tv_category = finaView(R.id.buttom_tv_category);
+		buttom_tv_cart = finaView(R.id.buttom_tv_cart);
+		buttom_tv_my = finaView(R.id.buttom_tv_my);
 	}
 
 	private void setListener() {
@@ -148,34 +80,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		buttom_tv_category.setOnClickListener(this);
 		buttom_tv_cart.setOnClickListener(this);
 		buttom_tv_my.setOnClickListener(this);
-
-		buttom_tv_home.performClick();
-
-		finaView(R.id.layout_head_left_r).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						System.out.println("testservice");
-						TestService service = new TestService();
-						service.setDataService(MainActivity.this);
-						service.setAuth(true);
-						service.setCachingEnabled(false);
-						service.start();
-					}
-				});
-		finaView(R.id.layout_head_right_r).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						System.out.println("testservice2");
-						Test2Service service = new Test2Service();
-						service.setDataService(MainActivity.this);
-						service.setAuth(true);
-						service.setCachingEnabled(false);
-						service.start();
-					}
-				});
-
 	}
 
 	/**
@@ -195,7 +99,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		if (currentView != null && currentView.equals(v)) {
 			return;
 		}
-
 		// 创建Fragment管理者
 		FragmentManager manager = getSupportFragmentManager();
 		// 获取Fragment提交事物
@@ -204,31 +107,27 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		switch (v.getId()) {
 		case R.id.buttom_tv_home:
 			setBottom(v);
+			homeFragment = new HomeFragment();
 			transaction.replace(R.id.frame_layout, homeFragment);
 			transaction.commit();
-			layout_head_centre_tv.setText(R.string.home);
-			layout_head_centre_tv.setVisibility(View.VISIBLE);
 			break;
 		case R.id.buttom_tv_category:
 			setBottom(v);
+			categoryFragment = new CategoryFragment();
 			transaction.replace(R.id.frame_layout, categoryFragment);
 			transaction.commit();
-			layout_head_centre_tv.setText(R.string.category);
-			layout_head_centre_tv.setVisibility(View.VISIBLE);
 			break;
 		case R.id.buttom_tv_cart:
 			setBottom(v);
+			cartFragment = new CartFragment();
 			transaction.replace(R.id.frame_layout, cartFragment);
 			transaction.commit();
-			layout_head_centre_tv.setText(R.string.cart);
-			layout_head_centre_tv.setVisibility(View.VISIBLE);
 			break;
 		case R.id.buttom_tv_my:
 			setBottom(v);
+			myFragment = new MyFragment();
 			transaction.replace(R.id.frame_layout, myFragment);
 			transaction.commit();
-			layout_head_centre_tv.setText(R.string.my);
-			layout_head_centre_tv.setVisibility(View.VISIBLE);
 			break;
 		default:
 			break;
@@ -249,35 +148,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		currentView.setSelected(true);
 	}
 
-	private static final Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(android.os.Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-				// Log.d(TAG, "Set alias in handler.");
-				// // 调用 JPush 接口来设置别名。
-				// JPushInterface.setAliasAndTags(SettingHelper.getInstance()
-				// .getApplicationContext(), (String) msg.obj, null,
-				// mAliasCallback);
-				System.out.println("00000000000");
-				break;
-			default:
-				// Log.i(TAG, "Unhandled msg - " + msg.what);
-			}
-		}
-	};
-
 	@Override
 	public void onServiceSuccess(DataService service, Object object) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onServiceFailure(DataService service, String ret) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

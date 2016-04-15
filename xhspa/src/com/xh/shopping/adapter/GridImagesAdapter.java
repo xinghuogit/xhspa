@@ -65,8 +65,7 @@ public class GridImagesAdapter extends BasicAdapter {
 			holder = new ViewHolder();
 			convertView = getInflater().inflate(R.layout.grid_item_image,
 					parent, false);
-			holder.image = (ImageView) convertView
-					.findViewById(R.id.item_grida_image);
+			holder.image = findView(convertView, R.id.item_grida_image);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();

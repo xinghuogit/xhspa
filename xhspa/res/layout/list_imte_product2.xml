@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_blue"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <LinearLayout
+        style="@style/list_item_product_l"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/list_item_product2_iv1"
+            style="@style/list_item_product_iv"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/list_item_product2_name1"
+            style="@style/list_item_product_name"
+            android:layout_marginTop="10dp"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            style="@style/split_line_h"
+            android:layout_marginTop="6dp"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/list_item_product2_price1"
+            style="@style/list_item_product_price"
+            android:layout_marginTop="10dp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/list_item_product_l"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/list_item_product2_iv2"
+            style="@style/list_item_product_iv"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/list_item_product2_name2"
+            style="@style/list_item_product_name"
+            android:layout_marginTop="10dp"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            style="@style/split_line_h"
+            android:layout_marginTop="6dp"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/list_item_product2_price2"
+            style="@style/list_item_product_price"
+            android:layout_marginTop="10dp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+</LinearLayout>
