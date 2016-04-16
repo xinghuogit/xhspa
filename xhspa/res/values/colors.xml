@@ -32,4 +32,10 @@
     <color name="color_eeeeee">#eeeeee</color>
     <color name="color_ffffff">#ffffff</color>
 
+    <!-- 下拉刷新开始 -->
+    <color name="holo_light_blue">#ff00ddff</color>
+    <color name="holo_light_green">#ff99cc00</color>
+    <color name="holo_light_orange">#ffffbb33</color>
+    <color name="holo_light_red">#ffff4444</color>
+
 </resources>
