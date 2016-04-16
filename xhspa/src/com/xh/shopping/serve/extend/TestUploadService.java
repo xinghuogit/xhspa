@@ -18,7 +18,6 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import com.xh.shopping.constant.Constant;
 import com.xh.shopping.serve.DataServiceImplJSON;
 import com.xh.shopping.util.PartUtil;
 

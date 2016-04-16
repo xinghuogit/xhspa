@@ -25,6 +25,6 @@ public class XhspApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-//		SMSSDK.initSDK(this, "d84ab355d37a", "57a8d7c06507c07f8ee40874586bebd4");
+		SMSSDK.initSDK(this, "d84ab355d37a", "57a8d7c06507c07f8ee40874586bebd4");
 	}
 }

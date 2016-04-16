@@ -44,7 +44,6 @@ import com.xh.shopping.util.UIHelper;
  */
 public class JSONDataServiceImpl1 extends Thread {
 
-	private static JSONDataServiceImpl1 serviceInstance = null;
 
 	// public static synchronized JSONDataService getInstance() {
 	// if (serviceInstance == null) {
