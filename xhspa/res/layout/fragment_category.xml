@@ -6,6 +6,16 @@
     android:background="@color/app_white"
     android:orientation="vertical" >
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/StyleProgressBarMini"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@drawable/shape_progressbar_bg"
+        android:max="100"
+        android:progress="1" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"

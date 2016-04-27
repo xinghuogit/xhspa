@@ -18,11 +18,14 @@ import com.xh.shopping.R;
 import com.xh.shopping.ui.MainActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 /**
  * @filename 文件名称：CategoryFragment.java
@@ -31,6 +34,8 @@ import android.view.ViewGroup;
 public class CategoryFragment extends Fragment {
 	private MainActivity activity;
 	private View parent;
+	private ProgressBar progressBar;
+	private int i = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,11 +53,44 @@ public class CategoryFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		activity = (MainActivity) getActivity();
 		parent = getView();
-
+		progressBar = (ProgressBar) parent.findViewById(R.id.progressBar);
 		findView();
 	}
 
 	private void findView() {
 		System.out.println("CategoryFragment");
+
+		new Thread() {
+			public void run() {
+				while (i < 10) {
+					System.out.println("Thread");
+					try {
+						// 获取耗时的完成百分比
+						Message m = new Message();
+						m.what = i;
+						i++;
+						// 发送消息到Handler
+						handler.sendMessage(m);
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}.start();
 	}
+
+	private Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			int progress = (Integer) msg.what;
+			System.out.println("progress:" + progress);
+			progressBar.setProgress(progress);
+			if (100 == progress) {
+				progressBar.setVisibility(View.GONE);
+			}
+
+		};
+	};
+
 }

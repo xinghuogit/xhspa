@@ -15,8 +15,10 @@
 package com.xh.shopping.ui;
 
 import com.xh.shopping.R;
+import com.xh.shopping.R.layout;
 
 import android.app.Activity;
+import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

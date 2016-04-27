@@ -80,6 +80,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		buttom_tv_category.setOnClickListener(this);
 		buttom_tv_cart.setOnClickListener(this);
 		buttom_tv_my.setOnClickListener(this);
+		buttom_tv_home.performClick();
 	}
 
 	/**

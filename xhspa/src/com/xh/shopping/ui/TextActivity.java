@@ -14,9 +14,13 @@
  ************************************************************************************************/
 package com.xh.shopping.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import com.xh.shopping.R;
+import com.xh.shopping.model.User;
 import com.xh.shopping.setting.SettingHelper;
 
 /**
@@ -24,11 +28,14 @@ import com.xh.shopping.setting.SettingHelper;
  * @contents 内容摘要：
  */
 public class TextActivity extends Activity {
+	List<User> list = new ArrayList<User>();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		SettingHelper.getInstance().setCurrentActivity(this);
-//		UIHelper.getInstance().setSystemBar();
+		// UIHelper.getInstance().setSystemBar();
 		setContentView(R.layout.activity_test);
+		list.add(new User());
 	}
 }

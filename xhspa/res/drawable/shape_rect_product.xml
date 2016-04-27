@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <!-- 颜色 -->
-    <solid android:color="@color/white" />
+    <solid android:color="@android:color/white" />
 
     <!-- 字体间距 -->
     <padding

@@ -39,7 +39,7 @@ import android.widget.TextView;
  * @contents 内容摘要：
  */
 @SuppressLint("InflateParams")
-public abstract class RefreshLayout1 extends SwipeRefreshLayout implements
+public class RefreshLayout1 extends SwipeRefreshLayout implements
 		OnScrollListener {
 	/**
 	 * 滑动到最下面时的上拉操作
@@ -118,6 +118,10 @@ public abstract class RefreshLayout1 extends SwipeRefreshLayout implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public RefreshLayout1(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs);
 	}
 
 	@Override

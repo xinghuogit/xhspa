@@ -17,6 +17,7 @@ package com.xh.shopping.ui.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +27,7 @@ import com.xh.shopping.R;
 import com.xh.shopping.adapter.HomeAdapter;
 import com.xh.shopping.model.Product;
 import com.xh.shopping.ui.BaseFragment;
+import com.xh.shopping.ui.activity.TestRegistActivity;
 import com.xh.shopping.view.RefreshLayout1;
 import com.xh.shopping.view.RefreshLayout1.OnLoadListener;
 
@@ -61,8 +63,12 @@ public class HomeFragment extends BaseFragment implements OnClickListener,
 				R.color.holo_light_green, R.color.holo_light_orange,
 				R.color.holo_light_red);
 		layout_head_centre_tv.setText("首页");
+		layout_head_centre_tv.setVisibility(View.VISIBLE);
 		layout_head_left_tv.setText("扫一扫");
+		layout_head_left_tv.setVisibility(View.VISIBLE);
 		layout_head_right_tv.setText("消息");
+		layout_head_right_tv.setVisibility(View.VISIBLE);
+		System.out.println("11111111111111111111");
 		adapter = new HomeAdapter();
 	}
 
@@ -79,6 +85,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.layout_head_left_r:
+			startActivity(new Intent(activity, TestRegistActivity.class));
 			break;
 		case R.id.layout_head_right_r:
 			break;
