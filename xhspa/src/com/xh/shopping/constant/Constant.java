@@ -115,5 +115,9 @@ public class Constant implements Serializable {
 	 * 修改密码
 	 */
 	public static final String API_CHANGEPASSWORD = "changepassword.json";
+	/**
+	 * 修改密码
+	 */
+	public static final String API_PRODUCTLIST = "productlist.json";
 
 }
